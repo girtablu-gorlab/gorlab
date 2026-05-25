@@ -48,7 +48,7 @@
 
   let pagefind: {
     init: () => Promise<void>
-    search: (q: string, opts?: { filters?: Record<string, string> }) => Promise<{ results: { data: () => Promise<PagefindResultData> }[] }>
+    search: (q: string | null, opts?: { filters?: Record<string, string> }) => Promise<{ results: { data: () => Promise<PagefindResultData> }[] }>
     filters: () => Promise<Record<string, Record<string, number>>>
     options: (o: object) => Promise<void>
   } | null = null

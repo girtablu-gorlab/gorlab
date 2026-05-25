@@ -48,7 +48,7 @@
 <!-- Structured: header image / article / footer divided card -->
 <Story name="Structured">
   <a
-    href="#"
+    href="/"
     class="card preset-filled-surface-100-900 border border-surface-200-800 card-hover divide-y divide-surface-200-800 block max-w-sm overflow-hidden"
   >
     <header class="bg-surface-200-800 flex h-32 items-center justify-center text-sm opacity-50">
@@ -89,7 +89,7 @@
   <div class="grid grid-cols-3 gap-4 max-w-lg">
     {#each ['Alpha', 'Beta', 'Gamma'] as name (name)}
       <a
-        href="#"
+        href="/"
         class="card preset-filled-surface-100-900 border border-surface-200-800 card-hover p-4 text-center"
       >
         <p class="font-semibold">{name}</p>

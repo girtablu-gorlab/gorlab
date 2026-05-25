@@ -40,7 +40,7 @@
     <TagCloud {categories} selected="all" />
     <FilterBar
       {categories} {authors} {genres} {costs}
-      category="all" author="all" genre="all" cost="all" sort="newest"
+      category="all" author="all" genre="all" cost="all"
     />
   </div>
 </Story>
@@ -51,7 +51,7 @@
     <TagCloud {categories} selected="Horror" />
     <FilterBar
       {categories} {authors} {genres} {costs}
-      category="Horror" author="all" genre="all" cost="all" sort="oldest"
+      category="Horror" author="all" genre="all" cost="all"
     />
   </div>
 </Story>
@@ -65,6 +65,6 @@
 <Story name="BarOnly">
   <FilterBar
     {categories} {authors} {genres} {costs}
-    category="all" author="all" genre="all" cost="all" sort="newest"
+    category="all" author="all" genre="all" cost="all"
   />
 </Story>

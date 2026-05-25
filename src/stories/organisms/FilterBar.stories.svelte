@@ -20,7 +20,7 @@
 <Story name="Default">
   <FilterBar
     {categories} {authors} {genres} {costs}
-    category="all" author="all" genre="all" cost="all" sort="newest"
+    category="all" author="all" genre="all" cost="all"
   />
 </Story>
 
@@ -28,7 +28,7 @@
 <Story name="ActiveFilters">
   <FilterBar
     {categories} {authors} {genres} {costs}
-    category="Horror" author="all" genre="Fantasy" cost="all" sort="oldest"
+    category="Horror" author="all" genre="Fantasy" cost="all"
   />
 </Story>
 
@@ -36,7 +36,7 @@
 <Story name="NoCostColumn">
   <FilterBar
     {categories} {authors} {genres} {costs}
-    category="all" author="all" genre="all" cost="all" sort="newest"
+    category="all" author="all" genre="all" cost="all"
     showCost={false}
   />
 </Story>
