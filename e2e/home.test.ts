@@ -53,16 +53,16 @@ test.describe('home page — with cards', () => {
   })
 
   test('?tag= URL param applies tag filter and shows tag chip', async ({ page }) => {
-    // osr tag exists only on The Black Hack fixture
-    await page.goto('./?tag=osr')
+    // rules-lite tag exists only on The Black Hack fixture
+    await page.goto('./?tag=rules-lite')
     await waitForCards(page)
 
     expect(await page.locator('article.card').count()).toBe(1)
-    await expect(page.getByRole('button', { name: /Clear tag filter: osr/i })).toBeVisible()
+    await expect(page.getByRole('button', { name: /Clear tag filter: rules-lite/i })).toBeVisible()
   })
 
   test('clearing the tag chip restores all results', async ({ page }) => {
-    await page.goto('./?tag=osr')
+    await page.goto('./?tag=rules-lite')
     await waitForCards(page)
 
     const filtered = await page.locator('article.card').count()
@@ -78,18 +78,18 @@ test.describe('home page — with cards', () => {
   })
 
   test('tag link on resource page navigates home with ?tag= filter applied', async ({ page }) => {
-    // The Black Hack fixture has tag 'osr' — navigate to it and click the tag
+    // The Black Hack fixture has tag 'rules-lite' — navigate to it and click the tag
     await page.goto('.')
     await waitForCards(page)
 
     await page.getByRole('link', { name: /The Black Hack/i }).first().click()
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
 
-    const tagLink = page.getByRole('link', { name: 'osr' })
+    const tagLink = page.getByRole('link', { name: 'rules-lite' })
     await expect(tagLink).toBeVisible()
     await tagLink.click()
 
-    await expect(page).toHaveURL(/[?&]tag=osr/)
+    await expect(page).toHaveURL(/[?&]tag=rules-lite/)
     await waitForCards(page)
     expect(await page.locator('article.card').count()).toBe(1)
   })
