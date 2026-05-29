@@ -57,10 +57,10 @@
     <p class="opacity-60">This catalog is not currently accepting community submissions.</p>
 
   {:else if !config.submitUrl}
-    <h1 class="h2 mb-2">Submit a Resource</h1>
+    <h1 class="h2 mb-2">Submit a Exhibit</h1>
     <p class="opacity-60">The submission form has not been configured yet.</p>
     <p class="text-sm opacity-40 mt-2 italic">
-      Set <code>submitUrl</code> in <code>gorlab.config.js</code> to enable submissions.
+      Set <code>submitUrl</code> in <code>oddments.config.js</code> to enable submissions.
     </p>
 
   {:else if status === 'success'}
@@ -73,9 +73,9 @@
     </div>
 
   {:else}
-    <h1 class="h2 mb-2">Submit a Resource</h1>
+    <h1 class="h2 mb-2">Submit a Exhibit</h1>
     <p class="opacity-60 mb-8">
-      Suggest a resource to add to the catalog. Submissions are reviewed before publishing.
+      Suggest a exhibit to add to the catalog. Submissions are reviewed before publishing.
     </p>
 
     <form onsubmit={handleSubmit} class="flex flex-col gap-6" novalidate>
@@ -87,7 +87,7 @@
           name="fields[name]"
           type="text"
           class="input"
-          placeholder="Name of the resource"
+          placeholder="Name of the exhibit"
           required
         />
       </label>
@@ -154,7 +154,7 @@
           name="fields[summary]"
           class="textarea"
           rows="4"
-          placeholder="Brief description of the resource"
+          placeholder="Brief description of the exhibit"
           required
         ></textarea>
       </label>
@@ -193,7 +193,7 @@
         <p class="text-xs opacity-50 mt-1">Separate multiple tags with commas.</p>
       </label>
 
-      <!-- Custom fields from gorlab.config.js -->
+      <!-- Custom fields from oddments.config.js -->
       {#each config.customFields as field}
         <label class="label">
           <span class="label-text">{field.label}</span>
@@ -225,7 +225,7 @@
           class="btn preset-filled"
           disabled={status === 'submitting'}
         >
-          {status === 'submitting' ? 'Submitting…' : 'Submit Resource'}
+          {status === 'submitting' ? 'Submitting…' : 'Submit Exhibit'}
         </button>
         <p class="text-xs opacity-40">Fields marked <span class="text-error-500">*</span> are required.</p>
       </div>

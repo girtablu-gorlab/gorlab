@@ -1,4 +1,4 @@
-import rawConfig from "../../gorlab.config.js";
+import rawConfig from "../../oddments.config.js";
 import type { CatalogConfig, CardLayout, CustomField, FilterDimension, ImageOrientation } from "./config.js";
 
 const cfg = rawConfig as CatalogConfig;
@@ -13,7 +13,7 @@ export const config = {
   theme: cfg.theme ?? "cerberus",
 
   // Content display
-  postsPerPage: cfg.postsPerPage ?? 24,
+  exhibitsPerPage: cfg.exhibitsPerPage ?? 24,
   showCost: cfg.showCost ?? false,
 
   // Navigation & filters

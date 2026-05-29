@@ -15,6 +15,6 @@ tags:
   - investigation
 ---
 
-Body text goes here. It renders as the resource description on the entry page.
+Body text goes here. It renders as the exhibit description on the entry page.
 Markdown is supported: **bold**, *italic*, [links](https://example.com), etc.
 Delete this body section if you don't need it — it's optional.

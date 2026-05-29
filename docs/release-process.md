@@ -1,6 +1,6 @@
 # Release process
 
-Steps to cut a new gorlab release. Run these in order.
+Steps to cut a new oddments release. Run these in order.
 
 ## 1. Pre-release checks
 
@@ -16,10 +16,10 @@ Edit `package.json` — increment `version` to the new semver:
 "version": "X.Y.Z"
 ```
 
-Edit `starter-template/package.json` — update the `@gulluth/gorlab` dependency to match:
+Edit `starter-template/package.json` — update the `@gulluth/oddments` dependency to match:
 
 ```json
-"@gulluth/gorlab": "^X.Y.Z"
+"@gulluth/oddments": "^X.Y.Z"
 ```
 
 ## 3. Update the lockfile
@@ -51,21 +51,21 @@ Pushing the tag triggers the `publish.yml` workflow which runs tests and publish
 
 Check the **Actions** tab on GitHub. The publish job should complete successfully and the new version should appear on npm.
 
-## 7. Sync starter-template to gorlab-starter
+## 7. Sync starter-template to oddments-starter
 
-The `gorlab-starter` repo is the public template. After a release, sync any updated files from `starter-template/` into it:
+The `oddments-starter` repo is the public template. After a release, sync any updated files from `starter-template/` into it:
 
-| Source (gorlab) | Destination (gorlab-starter) |
+| Source (oddments) | Destination (oddments-starter) |
 | --- | --- |
 | `starter-template/package.json` | `package.json` |
-| `starter-template/gorlab.config.js` | `gorlab.config.js` |
+| `starter-template/oddments.config.js` | `oddments.config.js` |
 | `starter-template/README.md` | `README.md` |
 
-Copy changed files, commit in gorlab-starter, and push:
+Copy changed files, commit in oddments-starter, and push:
 
 ```bash
-# From the gorlab-starter directory
+# From the oddments-starter directory
 git add .
-git commit -m "chore: sync from gorlab vX.Y.Z"
+git commit -m "chore: sync from oddments vX.Y.Z"
 git push
 ```

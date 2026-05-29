@@ -1,9 +1,9 @@
 <script lang="ts">
   import { base } from '$app/paths'
   const { data } = $props()
-  const post = $derived(data.post)
+  const exhibit = $derived(data.exhibit)
   const config = $derived(data.config)
-  const orientation = $derived(post.imageOrientation ?? config.imageOrientation)
+  const orientation = $derived(exhibit.imageOrientation ?? config.imageOrientation)
 
   function hashString(s: string): number {
     let h = 0
@@ -18,54 +18,54 @@
     return `linear-gradient(135deg, color-mix(in oklch, var(--color-surface-200-800) 75%, oklch(0.5 0.15 ${hue1}) 25%), color-mix(in oklch, var(--color-surface-300-700) 70%, oklch(0.5 0.15 ${hue2}) 30%))`
   }
 
-  const hasCover = $derived(Boolean(post['cover-image']))
+  const hasCover = $derived(Boolean(exhibit['cover-image']))
   const coverSrc = $derived(
-    post['cover-image']?.startsWith('/') ? `${base}${post['cover-image']}` : (post['cover-image'] ?? '')
+    exhibit['cover-image']?.startsWith('/') ? `${base}${exhibit['cover-image']}` : (exhibit['cover-image'] ?? '')
   )
-  const coverStyle = $derived(hasCover ? '' : `background: ${placeholderGradient(post.name ?? post.slug)};`)
+  const coverStyle = $derived(hasCover ? '' : `background: ${placeholderGradient(exhibit.name ?? exhibit.slug)};`)
 </script>
 
 <svelte:head>
-  <title>{post.name}</title>
+  <title>{exhibit.name}</title>
 
-  {#each post.category as cat}
+  {#each exhibit.category as cat}
     <meta data-pagefind-filter="category:{cat}">
   {/each}
-  {#if post.author}
-    <meta data-pagefind-filter="author[content]" content={post.author}>
+  {#if exhibit.author}
+    <meta data-pagefind-filter="author[content]" content={exhibit.author}>
   {/if}
-  {#if post.genre}
-    <meta data-pagefind-filter="genre[content]" content={post.genre}>
+  {#if exhibit.genre}
+    <meta data-pagefind-filter="genre[content]" content={exhibit.genre}>
   {/if}
-  {#if post.cost}
-    <meta data-pagefind-filter="cost[content]" content={post.cost}>
+  {#if exhibit.cost}
+    <meta data-pagefind-filter="cost[content]" content={exhibit.cost}>
   {/if}
-  {#each post.tags as tag}
+  {#each exhibit.tags as tag}
     <meta data-pagefind-filter="tag:{tag}">
   {/each}
 
-  {#if post.summary}
-    <meta data-pagefind-meta="summary[content]" content={post.summary}>
+  {#if exhibit.summary}
+    <meta data-pagefind-meta="summary[content]" content={exhibit.summary}>
   {/if}
   {#if hasCover}
-    <meta data-pagefind-meta="cover-image[content]" content={post['cover-image']}>
+    <meta data-pagefind-meta="cover-image[content]" content={exhibit['cover-image']}>
   {/if}
-  <meta data-pagefind-meta="featured[content]" content={String(post.featured)}>
-  {#if post.category.length > 0}
-    <meta data-pagefind-meta="category[content]" content={post.category.join(', ')}>
+  <meta data-pagefind-meta="featured[content]" content={String(exhibit.featured)}>
+  {#if exhibit.category.length > 0}
+    <meta data-pagefind-meta="category[content]" content={exhibit.category.join(', ')}>
   {/if}
-  {#if post.author}
-    <meta data-pagefind-meta="author[content]" content={post.author}>
+  {#if exhibit.author}
+    <meta data-pagefind-meta="author[content]" content={exhibit.author}>
   {/if}
-  {#if post.cost}
-    <meta data-pagefind-meta="cost[content]" content={post.cost}>
+  {#if exhibit.cost}
+    <meta data-pagefind-meta="cost[content]" content={exhibit.cost}>
   {/if}
-  {#if post.sort_priority !== null}
-    <meta data-pagefind-sort="sort_priority[content]" content={String(post.sort_priority)}>
+  {#if exhibit.sort_priority !== null}
+    <meta data-pagefind-sort="sort_priority[content]" content={String(exhibit.sort_priority)}>
   {/if}
-  <meta data-pagefind-meta="date[content]" content={post.date}>
-  {#if post.imageOrientation}
-    <meta data-pagefind-meta="imageOrientation[content]" content={post.imageOrientation}>
+  <meta data-pagefind-meta="date[content]" content={exhibit.date}>
+  {#if exhibit.imageOrientation}
+    <meta data-pagefind-meta="imageOrientation[content]" content={exhibit.imageOrientation}>
   {/if}
 </svelte:head>
 
@@ -73,7 +73,7 @@
   {#if hasCover}
     <img
       src={coverSrc}
-      alt={post.name ?? ''}
+      alt={exhibit.name ?? ''}
       class="w-full rounded-container-token object-cover {classes}"
     />
   {:else}
@@ -85,31 +85,31 @@
 {/snippet}
 
 {#snippet metadataBlock()}
-  <h1 class="text-3xl font-bold leading-tight">{post.name}</h1>
+  <h1 class="text-3xl font-bold leading-tight">{exhibit.name}</h1>
 
   <div class="flex flex-col gap-1.5">
-    {#if post.author}
-      <span class="text-sm opacity-60">By <a href="{base}/?author={encodeURIComponent(post.author)}" class="hover:underline">{post.author}</a>{config.showCost && post.cost ? ` · ${post.cost}` : ''}</span>
+    {#if exhibit.author}
+      <span class="text-sm opacity-60">By <a href="{base}/?author={encodeURIComponent(exhibit.author)}" class="hover:underline">{exhibit.author}</a>{config.showCost && exhibit.cost ? ` · ${exhibit.cost}` : ''}</span>
     {/if}
-    {#if post.genre || post.license}
+    {#if exhibit.genre || exhibit.license}
       <div class="flex flex-wrap gap-1.5">
-        {#if post.genre}<a href="{base}/?genre={encodeURIComponent(post.genre)}" class="chip preset-tonal text-xs">{post.genre}</a>{/if}
-        {#if post.license}<span class="chip preset-tonal text-xs">{post.license}</span>{/if}
+        {#if exhibit.genre}<a href="{base}/?genre={encodeURIComponent(exhibit.genre)}" class="chip preset-tonal text-xs">{exhibit.genre}</a>{/if}
+        {#if exhibit.license}<span class="chip preset-tonal text-xs">{exhibit.license}</span>{/if}
       </div>
     {/if}
   </div>
 
-  {#if post.summary}
-    <p class="text-base opacity-80">{post.summary}</p>
+  {#if exhibit.summary}
+    <p class="text-base opacity-80">{exhibit.summary}</p>
   {/if}
 
-  {#if post.stats}
-    <p class="font-mono text-xs bg-surface-100-900 rounded p-3">{post.stats}</p>
+  {#if exhibit.stats}
+    <p class="font-mono text-xs bg-surface-100-900 rounded p-3">{exhibit.stats}</p>
   {/if}
 
-  {#if post.subtexts.length > 0}
+  {#if exhibit.subtexts.length > 0}
     <ul class="list-none space-y-1 text-sm opacity-80">
-      {#each post.subtexts as line}
+      {#each exhibit.subtexts as line}
         <li>{line}</li>
       {/each}
     </ul>
@@ -118,17 +118,17 @@
   {#if config.customFields && config.customFields.length > 0}
     <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
       {#each config.customFields as field}
-        {#if post.meta[field.key] !== undefined}
+        {#if exhibit.meta[field.key] !== undefined}
           <dt class="opacity-60 font-medium">{field.label}</dt>
           <dd>
             {#if field.type === 'url'}
-              <a href={String(post.meta[field.key])} target="_blank" rel="noopener noreferrer" class="anchor">
-                {post.meta[field.key]}
+              <a href={String(exhibit.meta[field.key])} target="_blank" rel="noopener noreferrer" class="anchor">
+                {exhibit.meta[field.key]}
               </a>
-            {:else if field.multiple && Array.isArray(post.meta[field.key])}
-              {(post.meta[field.key] as string[]).join(', ')}
+            {:else if field.multiple && Array.isArray(exhibit.meta[field.key])}
+              {(exhibit.meta[field.key] as string[]).join(', ')}
             {:else}
-              {post.meta[field.key]}
+              {exhibit.meta[field.key]}
             {/if}
           </dd>
         {/if}
@@ -136,22 +136,22 @@
     </dl>
   {/if}
 
-  {#if post.tags.length > 0}
+  {#if exhibit.tags.length > 0}
     <div class="flex flex-wrap gap-1.5">
-      {#each post.tags as tag}
+      {#each exhibit.tags as tag}
         <a href="{base}/?tag={encodeURIComponent(tag)}" class="chip preset-tonal text-xs">{tag}</a>
       {/each}
     </div>
   {/if}
 
-  {#if post['source-url']}
+  {#if exhibit['source-url']}
     <a
-      href={post['source-url']}
+      href={exhibit['source-url']}
       target="_blank"
       rel="noopener noreferrer"
       class="mt-auto btn preset-filled self-start inline-flex items-center gap-2"
     >
-      {post.source ? `Get it on ${post.source}` : 'View Resource'}
+      {exhibit.source ? `Get it on ${exhibit.source}` : 'View Exhibit'}
       <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6m0 0v6m0-6L10 14"/>
       </svg>

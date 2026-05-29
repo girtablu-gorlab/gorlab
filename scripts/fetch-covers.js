@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// Fetches external cover-image URLs from posts/, saves to static/covers/,
+// Fetches external cover-image URLs from oddments/, saves to static/covers/,
 // and rewrites frontmatter in-place to use local paths.
-// Idempotent: skips posts whose cover-image already points to a local path.
+// Idempotent: skips exhibits whose cover-image already points to a local path.
 
 import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
 import { join, extname, basename } from 'node:path'
 import matter from 'gray-matter'
 
-const POSTS_DIR = 'posts'
+const ODDMENTS_DIR = 'oddments'
 const COVERS_DIR = 'static/covers'
 
 function getMarkdownFiles(dir) {
@@ -25,7 +25,7 @@ function getMarkdownFiles(dir) {
 
 async function main() {
   mkdirSync(COVERS_DIR, { recursive: true })
-  const files = getMarkdownFiles(POSTS_DIR)
+  const files = getMarkdownFiles(ODDMENTS_DIR)
   let fetched = 0
   let rewrote = 0
 
@@ -36,9 +36,9 @@ async function main() {
 
     if (!coverUrl || typeof coverUrl !== 'string' || !coverUrl.startsWith('http')) continue
 
-    const postSlug = basename(filepath, '.md').replace(/^\d{4}-\d{2}-\d{2}-/, '')
+    const exhibitSlug = basename(filepath, '.md').replace(/^\d{4}-\d{2}-\d{2}-/, '')
     const ext = extname(new URL(coverUrl).pathname) || '.jpg'
-    const filename = `${postSlug}${ext}`
+    const filename = `${exhibitSlug}${ext}`
     const destPath = join(COVERS_DIR, filename)
     const localPath = `/covers/${filename}`
 
@@ -63,7 +63,7 @@ async function main() {
     }
   }
 
-  console.log(`\nDone. ${fetched} image(s) fetched, ${rewrote} post(s) updated.`)
+  console.log(`\nDone. ${fetched} image(s) fetched, ${rewrote} exhibit(s) updated.`)
 }
 
 main().catch(err => {

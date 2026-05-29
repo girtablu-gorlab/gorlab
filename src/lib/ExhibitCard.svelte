@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { Post } from "./posts.js";
+    import type { Exhibit } from "./oddments.js";
     import { base } from "$app/paths";
     import { config } from "./catalog.js";
 
-    let { post }: { post: Post } = $props();
+    let { exhibit }: { exhibit: Exhibit } = $props();
 
     function toArray(val: string | string[] | null | undefined): string[] {
         if (!val) return [];
@@ -25,38 +25,38 @@
         return `linear-gradient(135deg, color-mix(in oklch, var(--color-surface-200-800) 75%, oklch(0.5 0.15 ${hue1}) 25%), color-mix(in oklch, var(--color-surface-300-700) 70%, oklch(0.5 0.15 ${hue2}) 30%))`;
     }
 
-    const categories = $derived(toArray(post.category));
-    const author = $derived(toArray(post.author).join(", "));
-    const orientation = $derived(post.imageOrientation ?? config.imageOrientation);
-    const hasCover = $derived(Boolean(post["cover-image"]));
+    const categories = $derived(toArray(exhibit.category));
+    const author = $derived(toArray(exhibit.author).join(", "));
+    const orientation = $derived(exhibit.imageOrientation ?? config.imageOrientation);
+    const hasCover = $derived(Boolean(exhibit["cover-image"]));
     const coverSrc = $derived(
-        post["cover-image"]?.startsWith("/")
-            ? `${base}${post["cover-image"]}`
-            : (post["cover-image"] ?? ""),
+        exhibit["cover-image"]?.startsWith("/")
+            ? `${base}${exhibit["cover-image"]}`
+            : (exhibit["cover-image"] ?? ""),
     );
     const coverStyle = $derived(
         hasCover
             ? ""
-            : `background: ${placeholderGradient(post.name ?? post.slug)};`,
+            : `background: ${placeholderGradient(exhibit.name ?? exhibit.slug)};`,
     );
 </script>
 
 <article
-    class="card flex flex-col overflow-hidden hover:shadow-lg transition-shadow {post.featured
+    class="card flex flex-col overflow-hidden hover:shadow-lg transition-shadow {exhibit.featured
         ? 'ring-1 ring-primary-500'
         : ''}"
 >
     <!-- Cover image or gradient placeholder -->
     {#if orientation !== 'none'}
         <a
-            href={`${base}/resource/${post.slug}/`}
+            href={`${base}/exhibit/${exhibit.slug}/`}
             class="block {orientation === 'portrait' ? 'aspect-2/3' : 'aspect-3/2'} overflow-hidden shrink-0"
-            aria-label={post.name ?? post.slug}
+            aria-label={exhibit.name ?? exhibit.slug}
         >
             {#if hasCover}
                 <img
                     src={coverSrc}
-                    alt={post.name}
+                    alt={exhibit.name}
                     class="w-full h-full object-cover"
                     loading="lazy"
                 />
@@ -69,13 +69,13 @@
     <!-- Card body -->
     <div class="flex flex-col flex-1 p-4 gap-2">
         <h2 class="font-bold text-base leading-snug">
-            <a href={`${base}/resource/${post.slug}/`} class="hover:underline"
-                >{post.name}</a
+            <a href={`${base}/exhibit/${exhibit.slug}/`} class="hover:underline"
+                >{exhibit.name}</a
             >
         </h2>
 
-        {#if post.summary}
-            <p class="text-sm opacity-70 line-clamp-3">{post.summary}</p>
+        {#if exhibit.summary}
+            <p class="text-sm opacity-70 line-clamp-3">{exhibit.summary}</p>
         {/if}
 
         <div class="mt-auto pt-2 flex flex-col gap-1">
@@ -88,8 +88,8 @@
                     <span class="chip preset-tonal text-xs">{cat}</span>
                 {/each}
 
-                {#if config.showCost && post.cost}
-                    <span class="text-xs ml-auto opacity-60">{post.cost}</span>
+                {#if config.showCost && exhibit.cost}
+                    <span class="text-xs ml-auto opacity-60">{exhibit.cost}</span>
                 {/if}
             </div>
         </div>

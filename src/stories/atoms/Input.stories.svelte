@@ -35,7 +35,7 @@
 <Story name="Required">
   <label class="label w-72">
     <span class="label-text">Title <span class="text-error-500">*</span></span>
-    <input type="text" class="input" placeholder="Name of the resource" required />
+    <input type="text" class="input" placeholder="Name of the exhibit" required />
   </label>
 </Story>
 

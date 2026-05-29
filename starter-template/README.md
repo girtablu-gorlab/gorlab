@@ -1,6 +1,6 @@
 # My Catalog
 
-A filterable card catalog built with [Gorlab](https://github.com/girtablu/gorlab).
+A filterable card catalog built with [Oddments](https://github.com/gulluth/oddments).
 
 ## Quick start
 
@@ -8,8 +8,8 @@ A filterable card catalog built with [Gorlab](https://github.com/girtablu/gorlab
 
 1. Click **Use this template** → create your repo
 2. **In your new repo**, go to **Settings → Pages**, set Source to **GitHub Actions**
-3. Edit `gorlab.config.js` → set your `title` → commit → site deploys automatically
-4. Add posts to `posts/` → commit → site updates automatically
+3. Edit `oddments.config.js` → set your `title` → commit → site deploys automatically
+4. Add exhibits to `oddments/` → commit → site updates automatically
 
 ### For local development (optional)
 
@@ -21,18 +21,18 @@ npm run dev       # preview at http://localhost:5173
 
 ## Adding content
 
-Each resource is a Markdown file with YAML frontmatter in `posts/`.
+Each exhibit is a Markdown file with YAML frontmatter in `oddments/`.
 
 **Filename format:** `slug.md` — or `YYYY-MM-DD-slug.md` if you want to control sort order by publication date.
 
 ```yaml
 ---
-name: My Resource Title       # required — the only mandatory field
+name: My Exhibit Title       # required — the only mandatory field
 category:                     # recommended — drives tag cloud and filters
   - systems
 author: Author Name
 source: itch.io               # platform name
-source-url: https://example.itch.io/my-resource
+source-url: https://example.itch.io/my-exhibit
 genre: horror
 summary: A one-line description shown on the card.
 cost: free                    # free / PWYW / $5.00 / etc.
@@ -46,11 +46,11 @@ stats: 8 HP, 1 Armor, 10 STR
 subtexts:
   - "First bullet point on the entry page."
   - "Second bullet point."
-featured: true                # featured posts get a highlighted card accent
+featured: true                # featured exhibits get a highlighted card accent
 imageOrientation: portrait    # landscape | portrait | none — overrides global config
 ---
 
-Optional markdown body rendered on the resource page. Delete this if unused.
+Optional markdown body rendered on the exhibit page. Delete this if unused.
 ```
 
 Only `name` is required. Every other field degrades gracefully when absent.
@@ -65,25 +65,25 @@ To add a cover image locally, place the file in `static/covers/` and set:
 cover-image: /covers/filename.(jpg|gif|png|webp)
 ```
 
-## Posts structure
+## Exhibits structure
 
-Posts can live directly in `posts/` or in any subdirectory:
+Exhibits can live directly in `oddments/` or in any subdirectory:
 
 ```sh
-posts/
+oddments/
   my-adventure.md                   ← flat, no date
   2024-01-02-my-system.md           ← flat, with date prefix for sort order
   zines/
     my-zine.md                      ← in a subdir
 ```
 
-Posts with a `YYYY-MM-DD-` prefix sort before undated posts (newest date first). Undated posts sort after all dated ones.
+Exhibits with a `YYYY-MM-DD-` prefix sort before undated exhibits (newest date first). Undated exhibits sort after all dated ones.
 
-Subdirectory names have no effect on categories. Categories come only from the `category:` field in each post's frontmatter. Organize subdirectories however makes sense for you, the catalog ignores the folder structure.
+Subdirectory names have no effect on categories. Categories come only from the `category:` field in each exhibit's frontmatter. Organize subdirectories however makes sense for you, the catalog ignores the folder structure.
 
 ## Configuration
 
-Edit `gorlab.config.js`. Every option is documented inline. Common settings:
+Edit `oddments.config.js`. Every option is documented inline. Common settings:
 
 ```js
 export default {
@@ -92,7 +92,7 @@ export default {
   // siteUrl: "https://username.github.io/my-catalog",
   // theme: "vintage",        // cerberus | wintry | vintage | crimson | pine | modern
   // cardLayout: 'masonry',   // masonry (default) | grid
-  // postsPerPage: 24,
+  // exhibitsPerPage: 24,
   // imageOrientation: 'landscape',  // landscape | portrait | none
   // showCost: false,
 }
@@ -105,21 +105,21 @@ export default {
 | `masonry` (default) | Variable-height cards; gaps collapse. Best for mixed content. |
 | `grid`              | Uniform rows; all cards in a row share the same height.       |
 
-`imageOrientation` controls how cover images are displayed on cards and resource pages. Set it to match the shape of your cover images:
+`imageOrientation` controls how cover images are displayed on cards and exhibit pages. Set it to match the shape of your cover images:
 
-| Value                 | Card image box | Resource page layout      |
+| Value                 | Card image box | Exhibit page layout      |
 | --------------------- | -------------- | ------------------------- |
 | `landscape` (default) | 3:2 (wide)     | Image stacked above text  |
 | `portrait`            | 2:3 (tall)     | Image left, text right    |
 | `none`                | Hidden         | No image, text full width |
 
-Individual posts can override the global setting with `imageOrientation:` in their frontmatter.
+Individual exhibits can override the global setting with `imageOrientation:` in their frontmatter.
 
 ## Theming
 
 ### Preset themes
 
-Set `theme` in `gorlab.config.js`:
+Set `theme` in `oddments.config.js`:
 
 | Name       | Character      |
 | ---------- | -------------- |
@@ -136,7 +136,7 @@ The default is `cerberus`. Commit the config change and the site redeploys.
 
 1. Create a theme CSS file at the [Skeleton UI Theme Generator](https://themes.skeleton.dev/)
 2. Save it to `static/my-theme.css`
-3. In `gorlab.config.js`:
+3. In `oddments.config.js`:
 
 ```js
 theme: "my-theme",
@@ -157,7 +157,7 @@ customCss: "/my-styles.css",
 2. Set **Source** to **GitHub Actions**
 3. Push to `main` → the workflow builds and deploys automatically
 
-For project sites (`username.github.io/my-catalog`), uncomment `basePath` in `gorlab.config.js`:
+For project sites (`username.github.io/my-catalog`), uncomment `basePath` in `oddments.config.js`:
 
 ```js
 basePath: '/my-catalog',
@@ -167,19 +167,19 @@ basePath: '/my-catalog',
 
 ### GitHub
 
-Edit `package.json`, bump the version number in `"@gulluth/gorlab": "^x.y.z"`, save. The Github Actions run `npm install` which resolves the new version automatically.
+Edit `package.json`, bump the version number in `"@gulluth/oddments": "^x.y.z"`, save. The Github Actions run `npm install` which resolves the new version automatically.
 
 ### Local
 
 ```bash
-npm update @gulluth/gorlab
+npm update @gulluth/oddments
 ```
 
 Then push — GitHub Actions rebuilds with the new version.
 
 ## Custom fields
 
-If your catalog needs fields beyond the standard set, declare them in `gorlab.config.js`:
+If your catalog needs fields beyond the standard set, declare them in `oddments.config.js`:
 
 ```js
 customFields: [
@@ -189,13 +189,13 @@ customFields: [
 ],
 ```
 
-Then add the corresponding keys to your post frontmatter. Fields not declared here are ignored.
+Then add the corresponding keys to your exhibit frontmatter. Fields not declared here are ignored.
 
 ## Bulk import from CSV
 
-If you have existing data in a spreadsheet, the included `csv_to_posts.py` script (in the gorlab repo) can generate markdown files. See the script header for column format details.
+If you have existing data in a spreadsheet, the included `csv_to_oddments.py` script (in the oddments repo) can generate markdown files. See the script header for column format details.
 
 ## Contributing
 
-- **To report bugs:** [github.com/girtablu/gorlab/issues](https://github.com/girtablu/gorlab/issues)
-- **Contributing to the framework:** [CONTRIBUTING.md](https://github.com/girtablu/gorlab/blob/main/CONTRIBUTING.md)
+- **To report bugs:** [github.com/gulluth/oddments/issues](https://github.com/gulluth/oddments/issues)
+- **Contributing to the framework:** [CONTRIBUTING.md](https://github.com/gulluth/oddments/blob/main/CONTRIBUTING.md)

@@ -1,6 +1,6 @@
 name: Fetch Cover Images
 
-# Runs when a PR touching posts/ is opened or updated.
+# Runs when a PR touching oddments/ is opened or updated.
 # Downloads any external cover-image URLs, commits the images to static/covers/,
 # and rewrites frontmatter to use local paths — so the build never depends on
 # external image hosts staying up.
@@ -12,7 +12,7 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - 'posts/**'
+      - 'oddments/**'
 
 permissions:
   contents: write
@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add static/covers posts
+          git add static/covers oddments
           if ! git diff --cached --quiet; then
             git commit -m "chore: fetch external cover images"
             git push

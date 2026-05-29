@@ -1,9 +1,9 @@
 # Converts data.csv into front matter .md files for jekyll-ttrpg-catalog.
-# Each row becomes one post. First row is assumed to be column headings.
+# Each row becomes one exhibit. First row is assumed to be column headings.
 # The first column value is used as the filename.
-# Output files are placed in the current directory; move them to posts/<category>/ manually.
+# Output files are placed in the current directory; move them to oddments/<category>/ manually.
 #
-# Usage: python csv_to_posts.py
+# Usage: python csv_to_oddments.py
 # CSV columns should match the catalog schema: name, category, author, source, source-url,
 #   genre, summary, cost, license, cover-image, tags, stats, subtexts, etc.
 #
@@ -38,4 +38,4 @@ for row_index, row in enumerate(datareader):
             f.write("---\n")
 
 csvfile.close()
-print(f"Done. Move the generated .md files to posts/<category>/")
+print(f"Done. Move the generated .md files to oddments/<category>/")

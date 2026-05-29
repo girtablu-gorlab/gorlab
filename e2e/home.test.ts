@@ -16,7 +16,7 @@ test.describe('home page — with cards', () => {
     await waitForCards(page)
     const total = await page.locator('article.card').count()
 
-    await page.getByLabel('Search resources').fill('black')
+    await page.getByLabel('Search exhibits').fill('black')
 
     await expect(async () => {
       const count = await page.locator('article.card').count()
@@ -43,7 +43,7 @@ test.describe('home page — with cards', () => {
     const rpgCount = await page.locator('article.card').count()
 
     // Add a text search on top of the category filter
-    await page.getByLabel('Search resources').fill('black')
+    await page.getByLabel('Search exhibits').fill('black')
 
     await expect(async () => {
       const count = await page.locator('article.card').count()
@@ -77,7 +77,7 @@ test.describe('home page — with cards', () => {
     await expect(page.getByRole('button', { name: /Clear tag filter/i })).not.toBeVisible()
   })
 
-  test('tag link on resource page navigates home with ?tag= filter applied', async ({ page }) => {
+  test('tag link on exhibit page navigates home with ?tag= filter applied', async ({ page }) => {
     // The Black Hack fixture has tag 'rules-lite' — navigate to it and click the tag
     await page.goto('.')
     await waitForCards(page)
@@ -121,13 +121,13 @@ test.describe('home page — with cards', () => {
 test.describe('home page — no cards', () => {
   test.skip(
     true,
-    'Empty catalog requires a separate build with POSTS_DIR pointing to an empty directory. ' +
+    'Empty catalog requires a separate build with ODDMENTS_DIR pointing to an empty directory. ' +
     'Visual coverage is provided by the Storybook "Empty" story in Pages/Home.'
   )
 
   test('shows empty state message without errors', async ({ page }) => {
     await page.goto('.')
-    await expect(page.getByText(/no resources in the catalog yet/i)).toBeVisible()
+    await expect(page.getByText(/no exhibits in the catalog yet/i)).toBeVisible()
     await expect(page.locator('article.card')).toHaveCount(0)
   })
 })
