@@ -23,7 +23,7 @@ npm run dev       # preview at http://localhost:5173
 
 Each exhibit is a Markdown file with YAML frontmatter in `oddments/`.
 
-**Filename format:** `slug.md` — or `YYYY-MM-DD-slug.md` if you want to control sort order by publication date.
+**Filename format:** `slug.md` or `YYYY-MM-DD-slug.md` if you want to control sort order by publication date.
 
 ```yaml
 ---
@@ -194,8 +194,3 @@ Then add the corresponding keys to your exhibit frontmatter. Fields not declared
 ## Bulk import from CSV
 
 If you have existing data in a spreadsheet, the included `csv_to_oddments.py` script (in the oddments repo) can generate markdown files. See the script header for column format details.
-
-## Contributing
-
-- **To report bugs:** [github.com/gulluth/oddments/issues](https://github.com/gulluth/oddments/issues)
-- **Contributing to the framework:** [CONTRIBUTING.md](https://github.com/gulluth/oddments/blob/main/CONTRIBUTING.md)
