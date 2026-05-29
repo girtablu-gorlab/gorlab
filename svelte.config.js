@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import catalogConfig from './gorlab.config.js'
+import catalogConfig from './oddments.config.js'
 
 const base = catalogConfig.basePath ?? ''
 
@@ -20,7 +20,7 @@ const config = {
       handleUnseenRoutes: 'ignore',
       handleHttpError: ({ path, message }) => {
         if (path === '/favicon.svg') {
-          console.warn('Warning: /favicon.svg not found in static/ — add one or run `gorlab init`')
+          console.warn('Warning: /favicon.svg not found in static/ — add one or run `oddments init`')
           return
         }
         throw new Error(message)

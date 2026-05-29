@@ -41,7 +41,7 @@ test.describe('catalog page', () => {
     }).toPass({ timeout: 10000 })
   })
 
-  test('pagination is hidden when all posts fit on one page', async ({ page }) => {
+  test('pagination is hidden when all exhibits fit on one page', async ({ page }) => {
     await expect(page.locator('nav[aria-label*="pagination"]')).not.toBeVisible()
   })
 

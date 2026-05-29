@@ -12,9 +12,9 @@ npm install
 npm run dev
 ```
 
-Opens `http://localhost:5173`. The dev server reads `posts/` directly via Node.js `fs` in the SvelteKit `load()` functions on every request. Expect a brief CPU spike on first load — all posts are parsed from disk each time in dev mode. The built output prerenders everything once and is served instantly.
+Opens `http://localhost:5173`. The dev server reads `oddments/` directly via Node.js `fs` in the SvelteKit `load()` functions on every request. Expect a brief CPU spike on first load — all exhibits are parsed from disk each time in dev mode. The built output prerenders everything once and is served instantly.
 
-Changes to `src/` hot-reload automatically. Changes to `posts/` require a manual browser refresh (the files are read at request time, not watched).
+Changes to `src/` hot-reload automatically. Changes to `oddments/` require a manual browser refresh (the files are read at request time, not watched).
 
 Search does not function in dev mode because hot-reload prevents indexing. If you need to test search, run a `build` and `preview` as described below.
 
@@ -41,7 +41,7 @@ Playwright starts `vite preview` automatically against the built `build/` output
 npm run build
 ```
 
-Outputs a fully static site to `build/`. Every route is prerendered: the catalog index, one HTML file per resource slug, the submission form, and the RSS feed. If `posts/` is empty or absent the build still succeeds — resource pages are simply skipped and the catalog renders its empty state.
+Outputs a fully static site to `build/`. Every route is prerendered: the catalog index, one HTML file per exhibit slug, the submission form, and the RSS feed. If `oddments/` is empty or absent the build still succeeds — exhibit pages are simply skipped and the catalog renders its empty state.
 
 To preview the built output locally:
 
@@ -49,13 +49,13 @@ To preview the built output locally:
 npm run preview
 ```
 
-Opens `http://localhost:4173`. If `basePath` is set in `gorlab.config.js` (required for GitHub Pages project sites), the catalog will be at `http://localhost:4173/<basePath>/` instead.
+Opens `http://localhost:4173`. If `basePath` is set in `oddments.config.js` (required for GitHub Pages project sites), the catalog will be at `http://localhost:4173/<basePath>/` instead.
 
 ## Theming
 
 The app uses [Skeleton UI](https://skeleton.dev) v4. Themes are CSS files that define Skeleton's custom properties under a `[data-theme='name']` selector. Tailwind utility classes in components reference those properties, so swapping a theme reskins the entire app without touching component code.
 
-`+layout.svelte` sets `data-theme` on `<body>` at runtime via a `$effect`, which makes Skeleton's global styles (background color, base typography) pick up the theme correctly. The `theme` key in `gorlab.config.js` controls which value is applied.
+`+layout.svelte` sets `data-theme` on `<body>` at runtime via a `$effect`, which makes Skeleton's global styles (background color, base typography) pick up the theme correctly. The `theme` key in `oddments.config.js` controls which value is applied.
 
 ### Bundled presets
 
@@ -78,7 +78,7 @@ Full preset list: `cerberus`, `wintry`, `vintage`, `crimson`, `pine`, `modern`, 
     @import './my-theme.css';
     ```
 
-3. Set `theme: "my-theme"` in `gorlab.config.js`.
+3. Set `theme: "my-theme"` in `oddments.config.js`.
 
 Site owners who don't have access to `src/` can use the `customCss` config option instead — see [starter-template/README.md](../starter-template/README.md).
 

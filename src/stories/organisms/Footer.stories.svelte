@@ -12,7 +12,7 @@
   import { config } from '$lib/catalog.js';
 </script>
 
-<!-- Default: site title links to siteUrl (set in gorlab.config.js) -->
+<!-- Default: site title links to siteUrl (set in oddments.config.js) -->
 <Story name="Default">
   <footer class="border-t border-surface-200-800 px-4 py-3 text-xs opacity-40 text-center flex flex-wrap justify-center gap-x-4 gap-y-1">
     {#if config.siteUrl}

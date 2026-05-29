@@ -5,7 +5,7 @@ import type { CustomField, ImageOrientation } from './config.js'
 
 const VALID_ORIENTATIONS = new Set<string>(['landscape', 'portrait', 'none'])
 
-export interface Post {
+export interface Exhibit {
   slug: string
   date: string
   name: string | null
@@ -57,7 +57,7 @@ function normalizeSubtexts(data: Record<string, unknown>): string[] {
     .filter((v): v is string => typeof v === 'string')
 }
 
-export function parsePosts(dir = 'posts', customFields: CustomField[] = []): Post[] {
+export function parseOddments(dir = 'oddments', customFields: CustomField[] = []): Exhibit[] {
   return getMarkdownFiles(dir).flatMap(filepath => {
     try {
       const { data, content } = matter(readFileSync(filepath, 'utf-8'))
@@ -98,16 +98,16 @@ export function parsePosts(dir = 'posts', customFields: CustomField[] = []): Pos
         meta,
       }]
     } catch (e) {
-      console.warn(`[posts] skipping ${filepath}:`, e)
+      console.warn(`[oddments] skipping ${filepath}:`, e)
       return []
     }
   })
 }
 
-export function getCategories(posts: Post[]): string[] {
+export function getCategories(exhibits: Exhibit[]): string[] {
   const cats = new Set<string>()
-  for (const post of posts) {
-    for (const cat of post.category) {
+  for (const exhibit of exhibits) {
+    for (const cat of exhibit.category) {
       if (!RESERVED_CATEGORY_NAMES.has(cat)) cats.add(cat)
     }
   }

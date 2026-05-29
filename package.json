@@ -1,10 +1,10 @@
 {
-  "name": "@gulluth/gorlab",
+  "name": "@gulluth/oddments",
   "version": "0.1.12",
   "private": false,
   "type": "module",
   "bin": {
-    "gorlab": "./scripts/cli.js"
+    "oddments": "./scripts/cli.js"
   },
   "files": [
     "src/",
@@ -18,7 +18,7 @@
     "clean": "rm -rf build .svelte-kit",
     "rebuild": "npm run clean && npm run build",
     "dev": "vite dev",
-    "build": "svelte-kit sync && vite build && (pagefind --site build --glob \"resource/**/*.html\" && cp -r build/pagefind .svelte-kit/output/client/pagefind || echo \"No resource pages — search index skipped\")",
+    "build": "svelte-kit sync && vite build && (pagefind --site build --glob \"exhibit/**/*.html\" && cp -r build/pagefind .svelte-kit/output/client/pagefind || echo \"No exhibit pages — search index skipped\")",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "test:unit": "vitest run",

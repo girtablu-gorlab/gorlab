@@ -10,6 +10,6 @@ summary: A 20-page digest of strange tables and stranger fiction.
 cost: PWYW
 ---
 
-Posts can live directly in posts/ or in any subdirectory (like this one in posts/zines/).
+Exhibits can live directly in oddments/ or in any subdirectory (like this one in oddments/zines/).
 Subdirectory names have no effect on categories — categories come only from the
 frontmatter `category:` field above.

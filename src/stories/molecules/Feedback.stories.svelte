@@ -7,7 +7,7 @@
   });
 </script>
 
-<!-- Success: post-submit confirmation card from submit/+page.svelte -->
+<!-- Success: exhibit-submit confirmation card from submit/+page.svelte -->
 <Story name="Success">
   <div class="card mx-auto flex max-w-sm flex-col gap-4 p-8 text-center">
     <h1 class="h2">Thank you!</h1>
@@ -44,7 +44,7 @@
 <!-- Empty: no-results placeholder from CardGrid.svelte -->
 <Story name="Empty">
   <div class="flex min-h-48 items-center justify-center rounded border border-current border-dashed">
-    <p class="text-sm opacity-40">No resources match your filters.</p>
+    <p class="text-sm opacity-40">No exhibits match your filters.</p>
   </div>
 </Story>
 

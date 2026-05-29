@@ -1,13 +1,13 @@
 <script lang="ts">
   import { onMount, untrack } from 'svelte'
   import { base } from '$app/paths'
-  import type { Post } from '$lib/posts.js'
+  import type { Exhibit } from '$lib/oddments.js'
   import type { ImageOrientation } from '$lib/config.js'
   import CardGrid from '$lib/CardGrid.svelte'
   import FilterBar from '$lib/FilterBar.svelte'
   import TagCloud from '$lib/TagCloud.svelte'
   import Pagination from '$lib/Pagination.svelte'
-  import { sortPosts } from '$lib/filters.js'
+  import { sortExhibits } from '$lib/filters.js'
 
   const { data } = $props()
 
@@ -40,7 +40,7 @@
   let loading = $state(true)
   let unavailable = $state(false)
   let filtersOpen = $state(false)
-  let allPosts = $state<Post[]>([])
+  let allExhibits = $state<Exhibit[]>([])
   let categories = $state<string[]>([])
   let authors = $state<string[]>([])
   let genres = $state<string[]>([])
@@ -53,8 +53,8 @@
     options: (o: object) => Promise<void>
   } | null = null
 
-  function resultToPost(r: PagefindResultData): Post {
-    const slug = r.url.replace(/^.*\/resource\//, '').replace(/\/$/, '')
+  function resultToExhibit(r: PagefindResultData): Exhibit {
+    const slug = r.url.replace(/^.*\/exhibit\//, '').replace(/\/$/, '')
     return {
       slug,
       date: r.meta.date ?? '',
@@ -96,14 +96,14 @@
         Object.keys(filters).length ? { filters } : undefined
       )
       const results = await Promise.all(search.results.map(r => r.data()))
-      allPosts = results.map(resultToPost)
+      allExhibits = results.map(resultToExhibit)
     } finally {
       loading = false
     }
   }
 
   async function initPagefind() {
-    if (data.totalPosts === 0) {
+    if (data.totalExhibits === 0) {
       loading = false
       return
     }
@@ -161,17 +161,17 @@
     })
   })
 
-  const pageSize = $derived(data.config.postsPerPage)
-  const sorted = $derived(sortPosts(allPosts))
+  const pageSize = $derived(data.config.exhibitsPerPage)
+  const sorted = $derived(sortExhibits(allExhibits))
   const totalPages = $derived(Math.max(1, Math.ceil(sorted.length / pageSize)))
   const paginated = $derived(
     sorted.slice((currentPage - 1) * pageSize, currentPage * pageSize)
   )
-  const skeletonCount = $derived(Math.min(pageSize, data.totalPosts))
+  const skeletonCount = $derived(Math.min(pageSize, data.totalExhibits))
 </script>
 
 {#snippet skeletonGrid()}
-  <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6" aria-busy="true" aria-label="Loading resources">
+  <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6" aria-busy="true" aria-label="Loading exhibits">
     {#each { length: skeletonCount } as _}
       <li>
         <div class="card overflow-hidden animate-pulse">
@@ -196,10 +196,10 @@
     <div class="flex gap-2 items-center">
       <input
         type="search"
-        placeholder="Search resources…"
+        placeholder="Search exhibits…"
         bind:value={filterQuery}
         class="input flex-1"
-        aria-label="Search resources"
+        aria-label="Search exhibits"
       />
       {#if data.config.showFilterBar}
         <button
@@ -251,9 +251,9 @@
     {/if}
   </div>
 
-  {#if data.totalPosts === 0}
+  {#if data.totalExhibits === 0}
     <div class="flex items-center justify-center min-h-48 border border-current border-dashed rounded">
-      <p class="opacity-40 text-sm">No resources in the catalog yet.</p>
+      <p class="opacity-40 text-sm">No exhibits in the catalog yet.</p>
     </div>
   {:else if unavailable}
     <div class="flex items-center justify-center min-h-48 border border-current border-dashed rounded">
@@ -266,16 +266,16 @@
     {@render skeletonGrid()}
   {:else}
     <p class="text-xs opacity-50 mb-4">
-      {sorted.length} resource{sorted.length === 1 ? '' : 's'}
+      {sorted.length} exhibit{sorted.length === 1 ? '' : 's'}
     </p>
 
-    <CardGrid posts={paginated} />
+    <CardGrid exhibits={paginated} />
 
     {#if totalPages > 1}
       <div class="mt-8 flex justify-center">
         <Pagination
           count={sorted.length}
-          pageSize={data.config.postsPerPage}
+          pageSize={data.config.exhibitsPerPage}
           bind:page={currentPage}
         />
       </div>

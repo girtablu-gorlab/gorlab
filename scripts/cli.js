@@ -48,13 +48,13 @@ switch (command) {
       run('vite', ['build'])
       const pagefindResult = spawnSync(
         resolveBin('pagefind'),
-        ['--site', 'build', '--glob', 'resource/**/*.html'],
+        ['--site', 'build', '--glob', 'exhibit/**/*.html'],
         { stdio: 'inherit', cwd }
       )
       if (pagefindResult.status === 0) {
         cpSync(join(cwd, 'build', 'pagefind'), join(cwd, '.svelte-kit', 'output', 'client', 'pagefind'), { recursive: true, force: true })
       } else {
-        console.log('No resource pages — search index skipped')
+        console.log('No exhibit pages — search index skipped')
       }
     } finally {
       cleanup()
@@ -92,7 +92,7 @@ switch (command) {
         if (entry.isDirectory()) {
           copyDir(srcPath, destPath)
         } else if (entry.name === 'package.json' && existsSync(destPath)) {
-          // Merge type:module and gorlab scripts into an existing package.json
+          // Merge type:module and oddments scripts into an existing package.json
           const existing = JSON.parse(readFileSync(destPath, 'utf8'))
           const template = JSON.parse(readFileSync(srcPath, 'utf8'))
           const patched = {
@@ -118,6 +118,6 @@ switch (command) {
   }
 
   default:
-    console.error('Usage: gorlab <build|dev|preview|init>')
+    console.error('Usage: oddments <build|dev|preview|init>')
     process.exit(1)
 }

@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/svelte'
 import CardGrid from './CardGrid.svelte'
-import type { Post } from './posts.js'
+import type { Exhibit } from './oddments.js'
 
-function makePost(overrides: Partial<Post> = {}): Post {
+function makeExhibit(overrides: Partial<Exhibit> = {}): Exhibit {
   return {
-    slug: 'test-post',
+    slug: 'test-exhibit',
     date: '2024-01-01',
-    name: 'Test Post',
+    name: 'Test Exhibit',
     category: [],
     summary: null,
     author: null,
@@ -28,30 +28,30 @@ function makePost(overrides: Partial<Post> = {}): Post {
   }
 }
 
-test('shows empty state message when posts array is empty', () => {
-  render(CardGrid, { posts: [] })
-  expect(screen.getByText('No resources match your filters.')).toBeInTheDocument()
+test('shows empty state message when exhibits array is empty', () => {
+  render(CardGrid, { exhibits: [] })
+  expect(screen.getByText('No exhibits match your filters.')).toBeInTheDocument()
 })
 
-test('renders a list item for each post', () => {
-  const posts = [
-    makePost({ slug: 'post-1', name: 'Post One' }),
-    makePost({ slug: 'post-2', name: 'Post Two' }),
-    makePost({ slug: 'post-3', name: 'Post Three' }),
+test('renders a list item for each exhibit', () => {
+  const exhibits = [
+    makeExhibit({ slug: 'exhibit-1', name: 'Exhibit One' }),
+    makeExhibit({ slug: 'exhibit-2', name: 'Exhibit Two' }),
+    makeExhibit({ slug: 'exhibit-3', name: 'Exhibit Three' }),
   ]
-  render(CardGrid, { posts })
-  expect(screen.getByText('Post One')).toBeInTheDocument()
-  expect(screen.getByText('Post Two')).toBeInTheDocument()
-  expect(screen.getByText('Post Three')).toBeInTheDocument()
+  render(CardGrid, { exhibits })
+  expect(screen.getByText('Exhibit One')).toBeInTheDocument()
+  expect(screen.getByText('Exhibit Two')).toBeInTheDocument()
+  expect(screen.getByText('Exhibit Three')).toBeInTheDocument()
 })
 
-test('does not show empty state when posts are present', () => {
-  render(CardGrid, { posts: [makePost()] })
-  expect(screen.queryByText('No resources match your filters.')).not.toBeInTheDocument()
+test('does not show empty state when exhibits are present', () => {
+  render(CardGrid, { exhibits: [makeExhibit()] })
+  expect(screen.queryByText('No exhibits match your filters.')).not.toBeInTheDocument()
 })
 
 test('masonry grid uses auto-rows-[10px] class', () => {
-  const { container } = render(CardGrid, { posts: [makePost()] })
+  const { container } = render(CardGrid, { exhibits: [makeExhibit()] })
   const grid = container.querySelector('ul')
   expect(grid?.className).toContain('auto-rows-[10px]')
 })

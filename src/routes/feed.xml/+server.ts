@@ -1,4 +1,4 @@
-import { parsePosts } from '$lib/posts.js'
+import { parseOddments } from '$lib/oddments.js'
 import { config } from '$lib/catalog.js'
 
 export const prerender = true
@@ -13,18 +13,18 @@ function escapeXml(str: string): string {
 }
 
 export function GET({ url }) {
-  const posts = parsePosts('posts', config.customFields)
+  const exhibits = parseOddments('oddments', config.customFields)
   const base = url.origin + (url.pathname.replace(/\/feed\.xml$/, '') || '')
 
-  const items = posts.map(post => `
+  const items = exhibits.map(exhibit => `
     <item>
-      <title>${escapeXml(post.name ?? '')}</title>
-      <description>${escapeXml(post.summary ?? '')}</description>
-      <link>${base}/resource/${post.slug}/</link>
-      <guid isPermaLink="true">${base}/resource/${post.slug}/</guid>
-      <pubDate>${new Date(post.date + 'T00:00:00Z').toUTCString()}</pubDate>
-      ${post.author ? `<author>${escapeXml(post.author)}</author>` : ''}
-      ${post.category.map(c => `<category>${escapeXml(c)}</category>`).join('\n      ')}
+      <title>${escapeXml(exhibit.name ?? '')}</title>
+      <description>${escapeXml(exhibit.summary ?? '')}</description>
+      <link>${base}/exhibit/${exhibit.slug}/</link>
+      <guid isPermaLink="true">${base}/exhibit/${exhibit.slug}/</guid>
+      <pubDate>${new Date(exhibit.date + 'T00:00:00Z').toUTCString()}</pubDate>
+      ${exhibit.author ? `<author>${escapeXml(exhibit.author)}</author>` : ''}
+      ${exhibit.category.map(c => `<category>${escapeXml(c)}</category>`).join('\n      ')}
     </item>`).join('')
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

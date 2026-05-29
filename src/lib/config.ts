@@ -17,7 +17,7 @@ export interface CatalogConfig {
   title: string
   description?: string
   theme?: string
-  postsPerPage?: number
+  exhibitsPerPage?: number
   showSubmitForm?: boolean
   submitUrl?: string
   showTagCloud?: boolean

@@ -62,7 +62,7 @@ test.describe('submission form', () => {
     await page.fill('[name="fields[author]"]', 'Jane Doe')
     await page.fill('[name="fields[summary]"]', 'A short form game about exploration.')
 
-    await page.getByRole('button', { name: 'Submit Resource' }).click()
+    await page.getByRole('button', { name: 'Submit Exhibit' }).click()
     await expect(page.locator('[data-testid="form-success"]')).toBeVisible()
 
     expect(capturedRequest).not.toBeNull()
@@ -75,7 +75,7 @@ test.describe('submission form', () => {
     await page.fill('[name="fields[name]"]', 'My Game')
     await page.fill('[name="fields[summary]"]', 'Great game.')
 
-    await page.getByRole('button', { name: 'Submit Resource' }).click()
+    await page.getByRole('button', { name: 'Submit Exhibit' }).click()
     await expect(page.locator('[data-testid="form-success"]')).toBeVisible()
   })
 
@@ -92,7 +92,7 @@ test.describe('submission form', () => {
     await page.fill('[name="fields[name]"]', 'My Game')
     await page.fill('[name="fields[summary]"]', 'Great game.')
 
-    await page.getByRole('button', { name: 'Submit Resource' }).click()
+    await page.getByRole('button', { name: 'Submit Exhibit' }).click()
     await expect(page.locator('[data-testid="form-error"]')).toBeVisible()
   })
 })

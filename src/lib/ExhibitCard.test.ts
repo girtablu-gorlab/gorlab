@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/svelte";
-import ResourceCard from "./ResourceCard.svelte";
-import type { Post } from "./posts.js";
+import ExhibitCard from "./ExhibitCard.svelte";
+import type { Exhibit } from "./oddments.js";
 
-function makePost(overrides: Partial<Post> = {}): Post {
+function makeExhibit(overrides: Partial<Exhibit> = {}): Exhibit {
   return {
-    slug: "test-post",
+    slug: "test-exhibit",
     date: "2024-01-01",
-    name: "Test Resource",
+    name: "Test Exhibit",
     category: [],
     summary: null,
     author: null,
@@ -27,34 +27,34 @@ function makePost(overrides: Partial<Post> = {}): Post {
   };
 }
 
-test("renders the post name", () => {
-  render(ResourceCard, { post: makePost({ name: "My Cool Game" }) });
+test("renders the exhibit name", () => {
+  render(ExhibitCard, { exhibit: makeExhibit({ name: "My Cool Game" }) });
   expect(screen.getByText("My Cool Game")).toBeInTheDocument();
 });
 
 test("renders summary when present", () => {
-  render(ResourceCard, {
-    post: makePost({ summary: "A great game for everyone." }),
+  render(ExhibitCard, {
+    exhibit: makeExhibit({ summary: "A great game for everyone." }),
   });
   expect(screen.getByText("A great game for everyone.")).toBeInTheDocument();
 });
 
 test("does not render summary element when absent", () => {
-  render(ResourceCard, { post: makePost({ summary: null }) });
+  render(ExhibitCard, { exhibit: makeExhibit({ summary: null }) });
   expect(screen.queryByText(/./)).not.toBeNull(); // card still renders
 });
 
-test("links to the resource detail page", () => {
-  render(ResourceCard, { post: makePost({ slug: "my-game" }) });
+test("links to the exhibit detail page", () => {
+  render(ExhibitCard, { exhibit: makeExhibit({ slug: "my-game" }) });
   const links = screen.getAllByRole("link");
   expect(
-    links.every((l) => l.getAttribute("href")?.includes("/resource/my-game/")),
+    links.every((l) => l.getAttribute("href")?.includes("/exhibit/my-game/")),
   ).toBe(true);
 });
 
 test("renders img tag when cover-image is set", () => {
-  render(ResourceCard, {
-    post: makePost({
+  render(ExhibitCard, {
+    exhibit: makeExhibit({
       "cover-image": "https://example.com/cover.png",
       name: "Covered Game",
     }),
@@ -65,42 +65,42 @@ test("renders img tag when cover-image is set", () => {
 });
 
 test("renders placeholder div (no img) when cover-image is null", () => {
-  render(ResourceCard, { post: makePost({ "cover-image": null }) });
+  render(ExhibitCard, { exhibit: makeExhibit({ "cover-image": null }) });
   expect(screen.queryByRole("img")).not.toBeInTheDocument();
 });
 
-test("featured post has ring class on article", () => {
-  const { container } = render(ResourceCard, {
-    post: makePost({ featured: true }),
+test("featured exhibit has ring class on article", () => {
+  const { container } = render(ExhibitCard, {
+    exhibit: makeExhibit({ featured: true }),
   });
   const article = container.querySelector("article");
   expect(article?.className).toContain("ring-1");
 });
 
-test("non-featured post does not have ring class on article", () => {
-  const { container } = render(ResourceCard, {
-    post: makePost({ featured: false }),
+test("non-featured exhibit does not have ring class on article", () => {
+  const { container } = render(ExhibitCard, {
+    exhibit: makeExhibit({ featured: false }),
   });
   const article = container.querySelector("article");
   expect(article?.className).not.toContain("ring-1");
 });
 
 test("renders author when present", () => {
-  render(ResourceCard, { post: makePost({ author: "Jane Doe" }) });
+  render(ExhibitCard, { exhibit: makeExhibit({ author: "Jane Doe" }) });
   expect(screen.getByText("Jane Doe")).toBeInTheDocument();
 });
 
 test("renders category chips", () => {
-  render(ResourceCard, {
-    post: makePost({ category: ["systems", "supplements"] }),
+  render(ExhibitCard, {
+    exhibit: makeExhibit({ category: ["systems", "supplements"] }),
   });
   expect(screen.getByText("systems")).toBeInTheDocument();
   expect(screen.getByText("supplements")).toBeInTheDocument();
 });
 
 test("local cover-image gets base prefix", () => {
-  render(ResourceCard, {
-    post: makePost({ "cover-image": "/covers/game.webp", name: "Local Cover" }),
+  render(ExhibitCard, {
+    exhibit: makeExhibit({ "cover-image": "/covers/game.webp", name: "Local Cover" }),
   });
   const img = screen.getByRole("img", { name: "Local Cover" });
   // base is '' in test mock, so the src should be '/covers/game.webp'

@@ -4,11 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "gorlab build",
-    "dev": "gorlab dev",
-    "preview": "gorlab preview"
+    "build": "oddments build",
+    "dev": "oddments dev",
+    "preview": "oddments preview"
   },
   "dependencies": {
-    "@gulluth/gorlab": "^0.1.12"
+    "@gulluth/oddments": "^0.1.12"
   }
 }

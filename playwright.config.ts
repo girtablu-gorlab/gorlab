@@ -1,8 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
-import catalogConfig from './gorlab.config.js'
+import catalogConfig from './oddments.config.js'
 
 const base: string = (catalogConfig as { basePath?: string }).basePath ?? ''
-const origin = 'http://localhost:4173'
+const origin = 'http://127.0.0.1:4173'
 const baseURL = `${origin}${base}/`
 
 export default defineConfig({
@@ -32,8 +32,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'POSTS_DIR=e2e/fixtures/posts npm run build && npm run preview',
+    command: 'ODDMENTS_DIR=e2e/fixtures/oddments npm run build && npm run preview -- --host 127.0.0.1',
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
   },
 })

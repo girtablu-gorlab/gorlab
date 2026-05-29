@@ -1,4 +1,4 @@
-import type { Post } from './posts.js'
+import type { Exhibit } from './oddments.js'
 
 export interface FilterState {
   category: string
@@ -19,27 +19,27 @@ function normalize(s: string | null | undefined): string {
 }
 
 export function applyFilters(
-  posts: Post[],
+  exhibits: Exhibit[],
   state: Pick<FilterState, 'category' | 'author' | 'genre' | 'cost'>
-): Post[] {
-  return posts.filter(post => {
-    if (state.category !== 'all' && !post.category.some(c => normalize(c) === normalize(state.category))) return false
-    if (state.author !== 'all' && normalize(post.author) !== normalize(state.author)) return false
-    if (state.genre !== 'all' && normalize(post.genre) !== normalize(state.genre)) return false
-    if (state.cost !== 'all' && normalize(post.cost) !== normalize(state.cost)) return false
+): Exhibit[] {
+  return exhibits.filter(exhibit => {
+    if (state.category !== 'all' && !exhibit.category.some(c => normalize(c) === normalize(state.category))) return false
+    if (state.author !== 'all' && normalize(exhibit.author) !== normalize(state.author)) return false
+    if (state.genre !== 'all' && normalize(exhibit.genre) !== normalize(state.genre)) return false
+    if (state.cost !== 'all' && normalize(exhibit.cost) !== normalize(state.cost)) return false
     return true
   })
 }
 
-export function sortPosts(posts: Post[]): Post[] {
-  const featured = [...posts.filter(p => p.featured)].sort((a, b) => {
+export function sortExhibits(exhibits: Exhibit[]): Exhibit[] {
+  const featured = [...exhibits.filter(p => p.featured)].sort((a, b) => {
     const pa = a.sort_priority ?? Infinity
     const pb = b.sort_priority ?? Infinity
     if (pa !== pb) return pa - pb
     return b.date.localeCompare(a.date)
   })
 
-  const rest = [...posts.filter(p => !p.featured)].sort((a, b) =>
+  const rest = [...exhibits.filter(p => !p.featured)].sort((a, b) =>
     b.date.localeCompare(a.date)
   )
 
@@ -47,24 +47,24 @@ export function sortPosts(posts: Post[]): Post[] {
 }
 
 export function paginate(
-  posts: Post[],
+  exhibits: Exhibit[],
   page: number,
   perPage: number
-): { items: Post[]; totalPages: number } {
-  const totalPages = Math.max(1, Math.ceil(posts.length / perPage))
+): { items: Exhibit[]; totalPages: number } {
+  const totalPages = Math.max(1, Math.ceil(exhibits.length / perPage))
   const safePage = Math.min(Math.max(1, page), totalPages)
-  const items = posts.slice((safePage - 1) * perPage, safePage * perPage)
+  const items = exhibits.slice((safePage - 1) * perPage, safePage * perPage)
   return { items, totalPages }
 }
 
-export function getAuthors(posts: Post[]): string[] {
-  return [...new Set(posts.map(p => p.author).filter((a): a is string => !!a))].sort()
+export function getAuthors(exhibits: Exhibit[]): string[] {
+  return [...new Set(exhibits.map(p => p.author).filter((a): a is string => !!a))].sort()
 }
 
-export function getGenres(posts: Post[]): string[] {
-  return [...new Set(posts.map(p => p.genre).filter((g): g is string => !!g))].sort()
+export function getGenres(exhibits: Exhibit[]): string[] {
+  return [...new Set(exhibits.map(p => p.genre).filter((g): g is string => !!g))].sort()
 }
 
-export function getCosts(posts: Post[]): string[] {
-  return [...new Set(posts.map(p => p.cost).filter((c): c is string => !!c))].sort()
+export function getCosts(exhibits: Exhibit[]): string[] {
+  return [...new Set(exhibits.map(p => p.cost).filter((c): c is string => !!c))].sort()
 }

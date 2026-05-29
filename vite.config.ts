@@ -9,7 +9,7 @@ export default defineConfig({
       ignored: [
         '**/build/**',
         '**/.svelte-kit/**',
-        (path: string) => path.endsWith('.md') && !path.includes('/posts/'),
+        (path: string) => path.endsWith('.md') && !path.includes('/oddments/'),
       ],
     },
   },

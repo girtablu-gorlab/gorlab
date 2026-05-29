@@ -1,31 +1,31 @@
 /**
  * @type {import('./src/lib/config.js').CatalogConfig}
  *
- * Gorlab configuration
+ * Oddments configuration
  * The commented-out options show the default value. 
  * To override a setting: uncomment it, then change the value.
  */
 
 export default {
   // ── Identity ──────────────────────────────────────────────────────────────
-  title: "Girtablu's Gorlab",
+  title: "Oddments",
   
   // description: shown in the header subtitle and page meta tags.
   description:
-    "A curious and unusual brick-a-brac, for curious and unusual folk.",
+    "An establishment of luxury and curiosity, for curious and unusual folk.",
 
   // siteUrl: public URL of your deployed site. When set, the site title in
   // the footer links here. Leave commented out if not yet deployed.
-  siteUrl: "https://github.com/girtablu/gorlab",
+  siteUrl: "https://github.com/gulluth/oddments",
 
   // basePath: sub-path for GitHub Pages project sites (userid.github.io/repo).
   // Leave commented out for root deployments (userid.github.io or custom domain).
-  // basePath: '/gorlab',
+  // basePath: '/oddments',
 
   // ── Appearance ────────────────────────────────────────────────────────────
   // theme: "cerberus", // cerberus | wintry | vintage | crimson | pine | modern
 
-  // cardLayout: controls how resource cards are arranged on the catalog page.
+  // cardLayout: controls how exhibit cards are arranged on the catalog page.
   //   'masonry' (default) — variable-height cards; gaps collapse naturally.
   //                         Cards are ordered left-to-right in date order.
   //                         Best for catalogs with mixed summary lengths or
@@ -35,25 +35,25 @@ export default {
   // cardLayout: 'masonry',
 
   // ── Content display ───────────────────────────────────────────────────────
-  // postsPerPage: 24,
+  // exhibitsPerPage: 24,
 
-  // Post filenames: posts/<category>/slug.md
+  // Exhibit filenames: oddments/<category>/slug.md
   // Optional: prefix with a publication date to control sort order —
-  //   posts/<category>/YYYY-MM-DD-slug.md
-  // Posts without a date prefix sort after all dated posts.
+  //   oddments/<category>/YYYY-MM-DD-slug.md
+  // Exhibits without a date prefix sort after all dated exhibits.
 
   // imageOrientation: controls how cover images are displayed across cards and
-  // resource pages. Match this to the shape of your cover images.
+  // exhibit pages. Match this to the shape of your cover images.
   //   'landscape' (default) — wide images (e.g. A5/half-letter landscape).
-  //                           Cards use a 3:2 box. Resource page: image above text.
+  //                           Cards use a 3:2 box. Exhibit page: image above text.
   //   'portrait'            — tall images (e.g. A5/half-letter portrait, book covers).
-  //                           Cards use a 2:3 box. Resource page: image left, text right.
+  //                           Cards use a 2:3 box. Exhibit page: image left, text right.
   //   'none'                — no cover images; content fills full width everywhere.
-  // Individual posts can override this with imageOrientation: in their frontmatter.
+  // Individual exhibits can override this with imageOrientation: in their frontmatter.
   // imageOrientation: 'landscape',
 
-  // showCost: set to false to hide the price field on resource pages and in
-  // filters, even when posts have cost metadata.
+  // showCost: set to false to hide the price field on exhibit pages and in
+  // filters, even when exhibits have cost metadata.
   // showCost: false,
 
   // ── Navigation & filters ──────────────────────────────────────────────────
@@ -80,14 +80,14 @@ export default {
   //   filters: { cost: { cloud: false, menu: false } },
 
   // ── Community submissions ─────────────────────────────────────────────────
-  // The /submit/ page lets visitors propose resources. Requires a backend
-  // add-on package to receive submissions (not bundled with gorlab).
+  // The /submit/ page lets visitors propose exhibits. Requires a backend
+  // add-on package to receive submissions (not bundled with oddments).
   // showSubmitForm: false,
   // submitUrl: "https://your-backend-endpoint/submit",
 
   // ── Custom fields ─────────────────────────────────────────────────────────
   // Extend the data schema with fields specific to your catalog. Each field
-  // is shown on resource pages and added to the submission form when enabled.
+  // is shown on exhibit pages and added to the submission form when enabled.
   // Fields not defined here are ignored by the app.
   //
   // key      — the frontmatter key in markdown files

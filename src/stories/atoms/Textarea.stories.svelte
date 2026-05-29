@@ -11,7 +11,7 @@
     },
     args: {
       rows: 4,
-      placeholder: 'Brief description of the resource…',
+      placeholder: 'Brief description of the exhibit…',
       disabled: false,
     },
   });
