@@ -25,6 +25,12 @@ function cleanup() {
   }
 }
 
+function cleanCache() {
+  for (const item of ['build', '.svelte-kit', ...EPHEMERAL]) {
+    rmSync(join(cwd, item), { recursive: true, force: true })
+  }
+}
+
 function resolveBin(name) {
   for (const base of [cwd, packageRoot]) {
     const p = join(base, 'node_modules', '.bin', name)
@@ -76,6 +82,12 @@ switch (command) {
 
   case 'preview': {
     run('vite', ['preview', '--outDir', 'build'])
+    break
+  }
+
+  case 'clean': {
+    cleanCache()
+    console.log('Removed Oddments build cache.')
     break
   }
 
@@ -162,6 +174,6 @@ switch (command) {
   }
 
   default:
-    console.error('Usage: oddments <build|dev|preview|init|import|covers>')
+    console.error('Usage: oddments <build|dev|preview|clean|init|import|covers>')
     process.exit(1)
 }

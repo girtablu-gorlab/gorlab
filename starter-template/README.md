@@ -17,6 +17,7 @@ A filterable card catalog built with [Oddments](https://github.com/gulluth/oddme
 git clone your-repo
 npm install
 npm run dev       # preview at http://localhost:5173
+npm run clean     # remove build cache if preview/build state gets stale
 ```
 
 ### Codespaces or Dev Containers
@@ -32,6 +33,7 @@ CLI commands work there too:
 ```bash
 npx oddments import template.csv --dry-run
 npx oddments covers --dry-run
+npx oddments clean
 ```
 
 ## Adding content
