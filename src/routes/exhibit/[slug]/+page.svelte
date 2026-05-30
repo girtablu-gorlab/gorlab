@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { asset, resolve } from '$app/paths'
+  import { resolve } from '$app/paths'
+  import { fallbackToRootAsset, resolveAssetPath } from '$lib/assets.js'
   import Icon from '$lib/Icon.svelte'
   const { data } = $props()
   const exhibit = $derived(data.exhibit)
@@ -20,9 +21,7 @@
   }
 
   const hasCover = $derived(Boolean(exhibit['cover-image']))
-  const coverSrc = $derived(
-    exhibit['cover-image']?.startsWith('/') ? asset(exhibit['cover-image']) : (exhibit['cover-image'] ?? '')
-  )
+  const coverSrc = $derived(resolveAssetPath(exhibit['cover-image']))
   const coverStyle = $derived(hasCover ? '' : `background: ${placeholderGradient(exhibit.name ?? exhibit.slug)};`)
   const hasMetadataChips = $derived(
     exhibit.category.length > 0 || Boolean(exhibit.genre) || Boolean(exhibit.license) || exhibit.tags.length > 0
@@ -79,6 +78,7 @@
       src={coverSrc}
       alt={exhibit.name ?? ''}
       class="w-full rounded-container-token object-cover {classes}"
+      onerror={fallbackToRootAsset}
     />
   {:else}
     <div

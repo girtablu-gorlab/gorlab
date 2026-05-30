@@ -10,6 +10,30 @@ async function waitForCardCount(page: Page, expected: number) {
   }).toPass({ timeout: 10000 })
 }
 
+async function expectCardsNotToOverlap(page: Page) {
+  await expect(async () => {
+    const boxes = await page.locator('article.card').evaluateAll(cards =>
+      cards.map(card => {
+        const rect = card.getBoundingClientRect()
+        return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom }
+      })
+    )
+
+    for (let i = 0; i < boxes.length; i += 1) {
+      for (let j = i + 1; j < boxes.length; j += 1) {
+        const a = boxes[i]
+        const b = boxes[j]
+        const overlaps =
+          a.left < b.right &&
+          a.right > b.left &&
+          a.top < b.bottom &&
+          a.bottom > b.top
+        expect(overlaps).toBe(false)
+      }
+    }
+  }).toPass({ timeout: 10000 })
+}
+
 test.describe('home page — with cards', () => {
   test('inline search input filters cards by text', async ({ page }) => {
     await page.goto('.')
@@ -115,6 +139,29 @@ test.describe('home page — with cards', () => {
       const chipTexts = await card.locator('.chip').allTextContents()
       expect(chipTexts.some(t => t.trim() === 'Adventure')).toBe(true)
     }
+  })
+
+  test('masonry cards do not overlap on a cold uncached load', async ({ page }) => {
+    await page.route('**/*', route => {
+      route.continue({ headers: { ...route.request().headers(), 'Cache-Control': 'no-cache' } })
+    })
+
+    await page.goto('.', { waitUntil: 'networkidle' })
+    await waitForCards(page)
+    await page.locator('article.card img').evaluateAll(images =>
+      Promise.all(
+        images.map(image => {
+          const img = image as HTMLImageElement
+          if (img.complete) return Promise.resolve()
+          return new Promise<void>(resolve => {
+            img.addEventListener('load', () => resolve(), { once: true })
+            img.addEventListener('error', () => resolve(), { once: true })
+          })
+        })
+      )
+    )
+
+    await expectCardsNotToOverlap(page)
   })
 })
 

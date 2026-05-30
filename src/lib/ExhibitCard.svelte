@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Exhibit } from "./oddments.js";
-    import { asset, resolve } from "$app/paths";
+    import { resolve } from "$app/paths";
+    import { fallbackToRootAsset, resolveAssetPath } from "./assets.js";
     import { config } from "./catalog.js";
 
     let { exhibit }: { exhibit: Exhibit } = $props();
@@ -14,11 +15,7 @@
     const author = $derived(toArray(exhibit.author).join(", "));
     const orientation = $derived(exhibit.imageOrientation ?? config.imageOrientation);
     const hasCover = $derived(Boolean(exhibit["cover-image"]));
-    const coverSrc = $derived(
-        exhibit["cover-image"]?.startsWith("/")
-            ? asset(exhibit["cover-image"])
-            : (exhibit["cover-image"] ?? ""),
-    );
+    const coverSrc = $derived(resolveAssetPath(exhibit["cover-image"]));
     const exhibitHref = $derived(resolve(`/exhibit/${exhibit.slug}/`))
 </script>
 
@@ -38,6 +35,7 @@
                 alt={exhibit.name}
                 class="w-full h-auto"
                 loading="lazy"
+                onerror={fallbackToRootAsset}
             />
         </a>
     {/if}
