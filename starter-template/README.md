@@ -226,4 +226,22 @@ Then add the corresponding keys to your exhibit frontmatter. Fields not declared
 
 ## Bulk import from CSV
 
-If you have existing data in a spreadsheet, the included `csv_to_oddments.py` script (in the oddments repo) can generate markdown files. See the script header for column format details.
+If you have existing data in a spreadsheet, export it as CSV and run:
+
+```bash
+npx oddments import path/to/data.csv
+```
+
+The starter includes `template.csv` with the standard column headings. Duplicate it, add your rows, then import the copy.
+
+The first row must be column headings. Headings are normalized to frontmatter keys, matching the legacy importer: spaces become hyphens, `%` becomes `percent`, and `$` is removed. The first column is used to build the exhibit slug and filename.
+
+Imported files are written flat into `oddments/` as `YYYY-MM-DD-slug.md` using today's date. Existing exhibits are never overwritten; if any markdown file under `oddments/` already has the same slug, that CSV row is skipped.
+
+Use `--dry-run` to preview the files that would be created:
+
+```bash
+npx oddments import path/to/data.csv --dry-run
+```
+
+Comma-separated values in `category`, `tags`, `subtexts`, and any `customFields` marked `multiple: true` are written as frontmatter arrays.

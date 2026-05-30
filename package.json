@@ -8,7 +8,9 @@
   },
   "files": [
     "src/",
-    "scripts/",
+    "scripts/cli.js",
+    "scripts/fetch-covers.js",
+    "scripts/import-csv.js",
     "starter-template/",
     "svelte.config.js",
     "vite.config.ts"

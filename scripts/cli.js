@@ -3,6 +3,7 @@ import { spawnSync } from 'child_process'
 import { cpSync, rmSync, existsSync, readdirSync, mkdirSync, copyFileSync, readFileSync, writeFileSync } from 'fs'
 import { resolve, dirname, join, relative } from 'path'
 import { fileURLToPath } from 'url'
+import { importCsv, summarizeImport } from './import-csv.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const packageRoot = resolve(__dirname, '..')
@@ -38,7 +39,7 @@ function run(bin, args = []) {
   }
 }
 
-const [,, command] = process.argv
+const [,, command, ...args] = process.argv
 
 switch (command) {
   case 'build': {
@@ -117,7 +118,28 @@ switch (command) {
     break
   }
 
+  case 'import': {
+    const dryRun = args.includes('--dry-run')
+    const csvPath = args.find(arg => !arg.startsWith('-'))
+
+    if (!csvPath) {
+      console.error('Usage: oddments import <csv> [--dry-run]')
+      process.exit(1)
+    }
+
+    const results = await importCsv(resolve(cwd, csvPath), { rootDir: cwd, dryRun })
+    for (const result of results) {
+      if (result.status === 'skipped') {
+        console.log(`Skipping ${result.slug ?? result.source}: ${result.reason}`)
+      } else {
+        console.log(`${dryRun ? 'Would write' : 'Writing'}: ${result.path}`)
+      }
+    }
+    console.log(summarizeImport(results, dryRun))
+    break
+  }
+
   default:
-    console.error('Usage: oddments <build|dev|preview|init>')
+    console.error('Usage: oddments <build|dev|preview|init|import>')
     process.exit(1)
 }
