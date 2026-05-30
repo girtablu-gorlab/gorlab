@@ -7,7 +7,7 @@ The codebase has two distinct layers that should never blur:
 | Layer       | Location                                          | Who owns it |
 | ----------- | ------------------------------------------------- | ----------- |
 | **App**     | `src/` — routes, components, data loading, styles | Developer   |
-| **Content** | `oddments/`, `oddments.config.js`                      | Site owner  |
+| **Content** | `oddments/`, `oddments.config.js`                 | Site owner  |
 
 SvelteKit prebuilds every route at build time (fully static output to `build/`). There is no server at runtime.
 
