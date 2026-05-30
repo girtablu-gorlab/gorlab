@@ -138,6 +138,6 @@ test("local cover-image gets base prefix", () => {
     exhibit: makeExhibit({ "cover-image": "/covers/game.webp", name: "Local Cover" }),
   });
   const img = screen.getByRole("img", { name: "Local Cover" });
-  // base is '' in test mock, so the src should be '/covers/game.webp'
+  // asset() returns the input path in the test mock.
   expect(img).toHaveAttribute("src", "/covers/game.webp");
 });

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { base } from '$app/paths'
+  import { resolve } from '$app/paths'
   import { config as defaultConfig, type ResolvedConfig } from '$lib/catalog.js'
   import Icon from './Icon.svelte'
   import { normalizeSocialHref, socialDefinitions } from './socials.js'
@@ -43,7 +43,7 @@
     {/if}
 
     {#if config.showRss}
-      <a href="{base}/feed.xml" class="hover:opacity-80 inline-flex items-center gap-1">
+      <a href={resolve('/feed.xml')} class="hover:opacity-80 inline-flex items-center gap-1">
         <Icon name="rss" size={14} />
         <span>RSS Feed</span>
       </a>
