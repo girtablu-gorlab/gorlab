@@ -83,7 +83,7 @@ export default {
 
   // ── Footer ────────────────────────────────────────────────────────────────
   copyright: "© 2026 Gulluth",
-  copyrightUrl: "https://raw/githubusercontent.com/Gulluth/oddments/refs/heads/main/LICENSE",
+  copyrightUrl: "https://raw.githubusercontent.com/Gulluth/oddments/refs/heads/main/LICENSE",
   // showRss: true,
   //
   // Social/contact links are hidden until you provide a value.
