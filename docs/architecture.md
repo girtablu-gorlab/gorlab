@@ -34,7 +34,7 @@ src/
     ├── catalog.ts             # reads oddments.config.js, applies defaults
     ├── config.ts              # TypeScript interfaces (CatalogConfig, CustomField, …)
     ├── CardGrid.svelte        # responsive grid, empty state
-    ├── ExhibitCard.svelte    # card with cover image / gradient placeholder
+    ├── ExhibitCard.svelte     # card with optional natural-ratio cover image
     ├── FilterBar.svelte       # dropdown filters + sort select
     ├── TagCloud.svelte        # category pill buttons
     ├── SearchInput.svelte     # text search input

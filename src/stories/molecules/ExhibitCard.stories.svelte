@@ -9,7 +9,7 @@
       imageOrientation: {
         control: 'radio',
         options: ['landscape', 'portrait', 'none'] satisfies ImageOrientation[],
-        description: 'Image aspect ratio and layout. Mirrors the per-exhibit frontmatter field.',
+        description: 'Controls whether card media is shown. Exhibit pages still use this for layout.',
       },
     },
     args: {
@@ -21,6 +21,11 @@
 <script lang="ts">
   import ExhibitCard from '$lib/ExhibitCard.svelte';
   import type { Exhibit } from '$lib/oddments.js';
+
+  const landscapeCover =
+    'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720"%3E%3Crect width="1200" height="720" fill="%232c5f5d"/%3E%3Ccircle cx="920" cy="190" r="150" fill="%23f0c46b"/%3E%3Cpath d="M0 520 260 350l170 105 210-190 250 255 150-120 160 120v200H0z" fill="%23d95d39"/%3E%3C/svg%3E';
+  const portraitCover =
+    'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1100"%3E%3Crect width="720" height="1100" fill="%23344156"/%3E%3Cpath d="M95 150h530v800H95z" fill="%23efe3c8"/%3E%3Cpath d="M155 245h410v85H155zm0 145h305v45H155zm0 75h360v45H155zm0 75h260v45H155z" fill="%2381465b"/%3E%3Ccircle cx="360" cy="760" r="120" fill="%232c8c77"/%3E%3C/svg%3E';
 
   const base: Exhibit = {
     slug: 'the-black-hack',
@@ -34,7 +39,7 @@
     genre: 'fantasy',
     cost: 'PWYW',
     license: 'CC BY 4.0',
-    'cover-image': null,
+    'cover-image': landscapeCover,
     tags: ['osr', 'dungeon-crawl'],
     stats: null,
     subtexts: [],
@@ -46,7 +51,7 @@
   };
 </script>
 
-<!-- Default: toggle imageOrientation in the Controls panel -->
+<!-- Default: image keeps its natural dimensions on cards -->
 <Story name="Default">
   {#snippet template(args)}
     <div class="w-56">
@@ -55,17 +60,17 @@
   {/snippet}
 </Story>
 
-<!-- Landscape: 3:2 image box — for wide cover images (A5/half-letter landscape) -->
+<!-- Landscape: wide image renders at its natural ratio on cards -->
 <Story name="Landscape">
   <div class="w-56">
-    <ExhibitCard exhibit={{ ...base, imageOrientation: 'landscape' }} />
+    <ExhibitCard exhibit={{ ...base, 'cover-image': landscapeCover, imageOrientation: 'landscape' }} />
   </div>
 </Story>
 
-<!-- Portrait: 2:3 image box — for tall cover images (A5/half-letter portrait, book covers) -->
+<!-- Portrait: tall image renders at its natural ratio on cards -->
 <Story name="Portrait">
   <div class="w-56">
-    <ExhibitCard exhibit={{ ...base, imageOrientation: 'portrait' }} />
+    <ExhibitCard exhibit={{ ...base, 'cover-image': portraitCover, imageOrientation: 'portrait' }} />
   </div>
 </Story>
 
@@ -73,6 +78,13 @@
 <Story name="None">
   <div class="w-56">
     <ExhibitCard exhibit={{ ...base, imageOrientation: 'none' }} />
+  </div>
+</Story>
+
+<!-- MissingCover: no placeholder media box is rendered -->
+<Story name="MissingCover">
+  <div class="w-56">
+    <ExhibitCard exhibit={{ ...base, 'cover-image': null }} />
   </div>
 </Story>
 
@@ -90,11 +102,11 @@
   </div>
 </Story>
 
-<!-- ThreeUp: mixed orientations in a grid to preview per-exhibit overrides -->
+<!-- ThreeUp: mixed image dimensions in a grid -->
 <Story name="ThreeUp">
   <div class="grid grid-cols-3 gap-6 max-w-2xl">
-    <ExhibitCard exhibit={{ ...base, imageOrientation: 'landscape' }} />
-    <ExhibitCard exhibit={{ ...base, slug: 'knave', name: 'Knave', author: 'Ben Milton', featured: true, imageOrientation: 'portrait' }} />
-    <ExhibitCard exhibit={{ ...base, slug: 'maze-rats', name: 'Maze Rats', author: 'Ben Milton', category: ['Toolkit'], summary: null, imageOrientation: 'none' }} />
+    <ExhibitCard exhibit={{ ...base, 'cover-image': landscapeCover, imageOrientation: 'landscape' }} />
+    <ExhibitCard exhibit={{ ...base, 'cover-image': portraitCover, slug: 'knave', name: 'Knave', author: 'Ben Milton', featured: true, imageOrientation: 'portrait' }} />
+    <ExhibitCard exhibit={{ ...base, 'cover-image': null, slug: 'maze-rats', name: 'Maze Rats', author: 'Ben Milton', category: ['Toolkit'], summary: null }} />
   </div>
 </Story>

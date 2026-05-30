@@ -37,7 +37,7 @@ export default {
   //   'masonry' (default) — variable-height cards; gaps collapse naturally.
   //                         Cards are ordered left-to-right in date order.
   //                         Best for catalogs with mixed summary lengths or
-  //                         mixed imageOrientation values.
+  //                         mixed cover image dimensions.
   //   'grid'              — uniform rows; every card in a row shares the same
   //                         height. Best when cards are visually consistent.
   // cardLayout: 'masonry',
@@ -50,12 +50,12 @@ export default {
   //   oddments/<category>/YYYY-MM-DD-slug.md
   // Exhibits without a date prefix sort after all dated exhibits.
 
-  // imageOrientation: controls how cover images are displayed across cards and
-  // exhibit pages. Match this to the shape of your cover images.
+  // imageOrientation: controls exhibit page cover layout and whether cover
+  // images are shown. Cards always use the cover image's natural dimensions.
   //   'landscape' (default) — wide images (e.g. A5/half-letter landscape).
-  //                           Cards use a 3:2 box. Exhibit page: image above text.
+  //                           Exhibit page: image above text.
   //   'portrait'            — tall images (e.g. A5/half-letter portrait, book covers).
-  //                           Cards use a 2:3 box. Exhibit page: image left, text right.
+  //                           Exhibit page: image left, text right.
   //   'none'                — no cover images; content fills full width everywhere.
   // Individual exhibits can override this with imageOrientation: in their frontmatter.
   // imageOrientation: 'landscape',

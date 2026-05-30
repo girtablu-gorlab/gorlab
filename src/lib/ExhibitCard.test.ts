@@ -22,6 +22,7 @@ function makeExhibit(overrides: Partial<Exhibit> = {}): Exhibit {
     body: "",
     featured: false,
     sort_priority: null,
+    imageOrientation: null,
     meta: {},
     ...overrides,
   };
@@ -53,7 +54,7 @@ test("links to the exhibit detail page", () => {
 });
 
 test("renders img tag when cover-image is set", () => {
-  render(ExhibitCard, {
+  const { container } = render(ExhibitCard, {
     exhibit: makeExhibit({
       "cover-image": "https://example.com/cover.png",
       name: "Covered Game",
@@ -62,11 +63,45 @@ test("renders img tag when cover-image is set", () => {
   const img = screen.getByRole("img", { name: "Covered Game" });
   expect(img).toBeInTheDocument();
   expect(img).toHaveAttribute("src", "https://example.com/cover.png");
+  expect(img).toHaveClass("w-full");
+  expect(img).toHaveClass("h-auto");
+  expect(img).not.toHaveClass("object-cover");
+  expect(container.querySelector(".aspect-3\\/2")).not.toBeInTheDocument();
+  expect(container.querySelector(".aspect-2\\/3")).not.toBeInTheDocument();
 });
 
-test("renders placeholder div (no img) when cover-image is null", () => {
-  render(ExhibitCard, { exhibit: makeExhibit({ "cover-image": null }) });
+test("renders no media area when cover-image is null", () => {
+  const { container } = render(ExhibitCard, {
+    exhibit: makeExhibit({ "cover-image": null }),
+  });
   expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  expect(container.querySelector('a[aria-label="Test Exhibit"]')).not.toBeInTheDocument();
+  expect(container.querySelector(".aspect-3\\/2")).not.toBeInTheDocument();
+  expect(container.querySelector(".aspect-2\\/3")).not.toBeInTheDocument();
+});
+
+test("renders no media area when imageOrientation is none", () => {
+  const { container } = render(ExhibitCard, {
+    exhibit: makeExhibit({
+      "cover-image": "https://example.com/cover.png",
+      imageOrientation: "none",
+    }),
+  });
+  expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  expect(container.querySelector('a[aria-label="Test Exhibit"]')).not.toBeInTheDocument();
+});
+
+test("card image orientation does not force a fixed card aspect ratio", () => {
+  const { container } = render(ExhibitCard, {
+    exhibit: makeExhibit({
+      "cover-image": "https://example.com/cover.png",
+      imageOrientation: "portrait",
+    }),
+  });
+  const mediaLink = container.querySelector('a[aria-label="Test Exhibit"]');
+  expect(mediaLink).toBeInTheDocument();
+  expect(mediaLink?.className).not.toContain("aspect-2/3");
+  expect(mediaLink?.className).not.toContain("aspect-3/2");
 });
 
 test("featured exhibit has ring class on article", () => {

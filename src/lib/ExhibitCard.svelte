@@ -10,21 +10,6 @@
         return Array.isArray(val) ? val : [val];
     }
 
-    function hashString(s: string): number {
-        let h = 0;
-        for (let i = 0; i < s.length; i++) {
-            h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
-        }
-        return Math.abs(h);
-    }
-
-    function placeholderGradient(name: string): string {
-        const h = hashString(name);
-        const hue1 = h % 360;
-        const hue2 = (h + 137) % 360;
-        return `linear-gradient(135deg, color-mix(in oklch, var(--color-surface-200-800) 75%, oklch(0.5 0.15 ${hue1}) 25%), color-mix(in oklch, var(--color-surface-300-700) 70%, oklch(0.5 0.15 ${hue2}) 30%))`;
-    }
-
     const categories = $derived(toArray(exhibit.category));
     const author = $derived(toArray(exhibit.author).join(", "));
     const orientation = $derived(exhibit.imageOrientation ?? config.imageOrientation);
@@ -34,11 +19,6 @@
             ? `${base}${exhibit["cover-image"]}`
             : (exhibit["cover-image"] ?? ""),
     );
-    const coverStyle = $derived(
-        hasCover
-            ? ""
-            : `background: ${placeholderGradient(exhibit.name ?? exhibit.slug)};`,
-    );
 </script>
 
 <article
@@ -46,23 +26,18 @@
         ? 'ring-1 ring-primary-500'
         : ''}"
 >
-    <!-- Cover image or gradient placeholder -->
-    {#if orientation !== 'none'}
+    {#if hasCover && orientation !== 'none'}
         <a
             href={`${base}/exhibit/${exhibit.slug}/`}
-            class="block {orientation === 'portrait' ? 'aspect-2/3' : 'aspect-3/2'} overflow-hidden shrink-0"
+            class="block overflow-hidden shrink-0"
             aria-label={exhibit.name ?? exhibit.slug}
         >
-            {#if hasCover}
-                <img
-                    src={coverSrc}
-                    alt={exhibit.name}
-                    class="w-full h-full object-cover"
-                    loading="lazy"
-                />
-            {:else}
-                <div class="w-full h-full" style={coverStyle}></div>
-            {/if}
+            <img
+                src={coverSrc}
+                alt={exhibit.name}
+                class="w-full h-auto"
+                loading="lazy"
+            />
         </a>
     {/if}
 

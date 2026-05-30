@@ -21,9 +21,10 @@
     "build": "svelte-kit sync && vite build && (pagefind --site build --glob \"exhibit/**/*.html\" && cp -r build/pagefind .svelte-kit/output/client/pagefind || echo \"No exhibit pages — search index skipped\")",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "test:unit": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:storybook": "vitest run --project storybook",
     "test:e2e": "playwright test",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test": "npm run test:unit && npm run test:storybook && npm run test:e2e",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
