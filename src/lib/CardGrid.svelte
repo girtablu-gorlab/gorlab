@@ -23,19 +23,30 @@
     }
   }
 
+  function scheduleMeasure() {
+    requestAnimationFrame(measureSpans)
+  }
+
   // Re-measure after each exhibits update so new cards get correct spans.
   $effect(() => {
     exhibits
     if (config.cardLayout !== 'masonry') return
-    requestAnimationFrame(measureSpans)
+    scheduleMeasure()
   })
 
-  // Re-measure on viewport resize so spans stay accurate as columns reflow.
+  // Re-measure when cards or images change size so cold image loads get correct
+  // masonry spans instead of overflowing into following grid rows.
   $effect(() => {
     if (config.cardLayout !== 'masonry' || !gridEl) return
-    const ro = new ResizeObserver(() => requestAnimationFrame(measureSpans))
-    ro.observe(gridEl)
-    return () => ro.disconnect()
+    const ro = new ResizeObserver(scheduleMeasure)
+    const cards = Array.from(gridEl.querySelectorAll<HTMLElement>('article.card'))
+    const images = Array.from(gridEl.querySelectorAll<HTMLImageElement>('img'))
+    cards.forEach(card => ro.observe(card))
+    images.forEach(image => image.addEventListener('load', scheduleMeasure, { once: true }))
+    return () => {
+      ro.disconnect()
+      images.forEach(image => image.removeEventListener('load', scheduleMeasure))
+    }
   })
 </script>
 
