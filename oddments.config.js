@@ -1,5 +1,5 @@
 /**
- * Gorlab configuration
+ * Oddments configuration
  * The commented-out options show the default value. 
  * To override a setting: uncomment it, then change the value.
  */
@@ -7,18 +7,26 @@
 export default {
   // ── Identity ──────────────────────────────────────────────────────────────
   // Required. The catalog title shown in the header and browser tab.
-  title: "Girtablu's Gorlab",
+  title: "Oddments",
 
   // description: shown in the header subtitle and page meta tags.
-  description: "A Curious and unusual brick-a-brac, for curious and unusual folk.",
+  description: "An establishment of luxury and curiosity, for curious and unusual folk.",
+
+  // icon: path to a custom SVG or PNG icon image in static/. When set, this
+  // appears before the title in the header.
+  // icon: "/icon.svg",
+
+  // logo: path to a custom SVG or PNG logo image in static/. When set, this
+  // replaces the icon and text title in the header.
+  // logo: "/logo.svg",
 
   // siteUrl: your deployed GitHub Pages URL. When set, the title links here.
   // Set this after your first deploy.
-  siteUrl: "https://girtablu.github.io/gorlab",
+  siteUrl: "https://gulluth.github.io/oddments",
 
   // basePath: uncomment only for GitHub Pages *project* sites
   // (username.github.io/my-catalog). Leave commented for root sites.
-  basePath: '/gorlab',
+  basePath: '/oddments',
 
   // ── Appearance ────────────────────────────────────────────────────────────
   // theme: one of the bundled presets below. Default: cerberus.
@@ -29,17 +37,31 @@ export default {
   // Use this to add custom fonts or override specific styles.
   // customCss: "/my-styles.css",
 
-  // ── Content display ───────────────────────────────────────────────────────
-  // postsPerPage: 24,
+  // cardLayout: controls how exhibit cards are arranged on the catalog page.
+  //   'masonry' (default) — variable-height cards; gaps collapse naturally.
+  //                         Cards are ordered left-to-right in date order.
+  //                         Best for catalogs with mixed summary lengths or
+  //                         mixed cover image dimensions.
+  //   'grid'              — uniform rows; every card in a row shares the same
+  //                         height. Best when cards are visually consistent.
+  // cardLayout: 'masonry',
 
-  // imageOrientation: controls how cover images are displayed across cards and
-  // resource pages. Match this to the shape of your cover images.
+  // ── Content display ───────────────────────────────────────────────────────
+  // exhibitsPerPage: 24,
+
+  // Exhibit filenames: oddments/<category>/slug.md
+  // Optional: prefix with a publication date to control sort order —
+  //   oddments/<category>/YYYY-MM-DD-slug.md
+  // Exhibits without a date prefix sort after all dated exhibits.
+
+  // imageOrientation: controls exhibit page cover layout and whether cover
+  // images are shown. Cards always use the cover image's natural dimensions.
   //   'landscape' (default) — wide images (e.g. A5/half-letter landscape).
-  //                           Cards use a 3:2 box. Resource page: image above text.
+  //                           Exhibit page: image above text.
   //   'portrait'            — tall images (e.g. A5/half-letter portrait, book covers).
-  //                           Cards use a 2:3 box. Resource page: image left, text right.
+  //                           Exhibit page: image left, text right.
   //   'none'                — no cover images; content fills full width everywhere.
-  // Individual posts can override this with imageOrientation: in their frontmatter.
+  // Individual exhibits can override this with imageOrientation: in their frontmatter.
   imageOrientation: 'portrait',
 
   // showCost: set to false to hide price info everywhere (cards, filters, pages).
@@ -59,14 +81,47 @@ export default {
   //   tags:     { cloud: false, menu: false },
   // },
 
+  // ── Footer ────────────────────────────────────────────────────────────────
+  copyright: "© 2026 Gulluth",
+  copyrightUrl: "https://raw/githubusercontent.com/Gulluth/oddments/refs/heads/main/LICENSE",
+  // showRss: true,
+  //
+  // Social/contact links are hidden until you provide a value.
+  // instagram: "",
+  // tiktok: "",
+  // facebook: "",
+  // twitter: "",
+  // bluesky: "",
+  // mastodon: "",
+  itch: "https://gulluthgulch.itch.io",
+  github: "https://github.com/Gulluth",
+  // deviantart: "",
+  // behance: "",
+  // discord: "",
+  // signal: "",
+  // drivethrurpg: "",
+  // youtube: "",
+  // patreon: "",
+  // kofi: "",
+  // twitch: "",
+  // tumblr: "",
+  // reddit: "",
+  // threads: "",
+  // substack: "",
+  // kickstarter: "",
+  // backerkit: "",
+  // gumroad: "",
+  // email: "",
+  // website: "https://gulluth.com",
+
   // ── Community submissions ─────────────────────────────────────────────────
-  // The /submit/ page lets visitors propose resources. Requires a backend
-  // add-on package to receive submissions (not bundled with gorlab).
+  // The /submit/ page lets visitors propose exhibits. Requires a backend
+  // add-on package to receive submissions (not bundled with oddments).
   // showSubmitForm: false,
   // submitUrl: "https://your-backend-endpoint/submit",
 
   // ── Custom fields ─────────────────────────────────────────────────────────
-  // Add extra fields specific to your catalog. They appear on resource pages.
+  // Add extra fields specific to your catalog. They appear on exhibit pages.
   // Fields not listed here are ignored by the app.
   //
   // key      — the frontmatter key in your markdown files

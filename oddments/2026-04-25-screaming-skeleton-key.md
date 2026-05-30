@@ -2,6 +2,7 @@
 category:
   - miscellany
 name: The Screaming Skeleton Key
+published: 
 author: Eklundz
 source: r/osr — Cool OSR Magic Items
 source-url: 'https://www.reddit.com/r/osr/comments/qoqbap/cool_osr_magic_items/'

@@ -2,6 +2,7 @@
 category:
   - npcs
 name: Brother Aldric Vane
+published: true
 author: Necrotic Gnome
 source: Adventuring Parties Generator
 source-url: >-
