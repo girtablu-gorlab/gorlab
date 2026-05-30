@@ -19,6 +19,21 @@ npm install
 npm run dev       # preview at http://localhost:5173
 ```
 
+### Codespaces or Dev Containers
+
+This template includes a `.devcontainer/` setup for GitHub Codespaces and local Docker-based development. Open the repo in Codespaces, or use VS Code's **Dev Containers: Reopen in Container** command, then run:
+
+```bash
+npm run dev
+```
+
+CLI commands work there too:
+
+```bash
+npx oddments import template.csv --dry-run
+npx oddments covers --dry-run
+```
+
 ## Adding content
 
 Each exhibit is a Markdown file with YAML frontmatter in `oddments/`.
@@ -152,7 +167,7 @@ export default {
 
 `imageOrientation` controls how cover images are displayed on cards and exhibit pages. Set it to match the shape of your cover images:
 
-| Value                 | Card image box | Exhibit page layout      |
+| Value                 | Card image box | Exhibit page layout       |
 | --------------------- | -------------- | ------------------------- |
 | `landscape` (default) | 3:2 (wide)     | Image stacked above text  |
 | `portrait`            | 2:3 (tall)     | Image left, text right    |
