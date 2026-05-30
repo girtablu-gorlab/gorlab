@@ -24,6 +24,9 @@
     exhibit['cover-image']?.startsWith('/') ? `${base}${exhibit['cover-image']}` : (exhibit['cover-image'] ?? '')
   )
   const coverStyle = $derived(hasCover ? '' : `background: ${placeholderGradient(exhibit.name ?? exhibit.slug)};`)
+  const hasMetadataChips = $derived(
+    exhibit.category.length > 0 || Boolean(exhibit.genre) || Boolean(exhibit.license) || exhibit.tags.length > 0
+  )
 </script>
 
 <svelte:head>
@@ -92,10 +95,16 @@
     {#if exhibit.author}
       <span class="text-sm opacity-60">By <a href="{base}/?author={encodeURIComponent(exhibit.author)}" class="hover:underline">{exhibit.author}</a>{config.showCost && exhibit.cost ? ` · ${exhibit.cost}` : ''}</span>
     {/if}
-    {#if exhibit.genre || exhibit.license}
+    {#if hasMetadataChips}
       <div class="flex flex-wrap gap-1.5">
+        {#each exhibit.category as cat}
+          <a href="{base}/?category={encodeURIComponent(cat)}" class="chip preset-tonal text-xs">{cat}</a>
+        {/each}
         {#if exhibit.genre}<a href="{base}/?genre={encodeURIComponent(exhibit.genre)}" class="chip preset-tonal text-xs">{exhibit.genre}</a>{/if}
         {#if exhibit.license}<span class="chip preset-tonal text-xs">{exhibit.license}</span>{/if}
+        {#each exhibit.tags as tag}
+          <a href="{base}/?tag={encodeURIComponent(tag)}" class="chip preset-tonal text-xs">{tag}</a>
+        {/each}
       </div>
     {/if}
   </div>
@@ -135,14 +144,6 @@
         {/if}
       {/each}
     </dl>
-  {/if}
-
-  {#if exhibit.tags.length > 0}
-    <div class="flex flex-wrap gap-1.5">
-      {#each exhibit.tags as tag}
-        <a href="{base}/?tag={encodeURIComponent(tag)}" class="chip preset-tonal text-xs">{tag}</a>
-      {/each}
-    </div>
   {/if}
 
   {#if exhibit['source-url']}
