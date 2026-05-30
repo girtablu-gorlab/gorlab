@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, untrack } from 'svelte'
-  import { base } from '$app/paths'
+  import { asset, resolve } from '$app/paths'
   import type { Exhibit } from '$lib/oddments.js'
   import type { ImageOrientation } from '$lib/config.js'
   import CardGrid from '$lib/CardGrid.svelte'
@@ -110,8 +110,9 @@
       return
     }
     try {
-      pagefind = await import(/* @vite-ignore */ `${base}/pagefind/pagefind.js`)
-      if (base) await pagefind!.options({ baseUrl: base })
+      pagefind = await import(/* @vite-ignore */ asset('/pagefind/pagefind.js'))
+      const baseUrl = resolve('/').replace(/\/$/, '')
+      if (baseUrl) await pagefind!.options({ baseUrl })
       await pagefind!.init()
       const available = await pagefind!.filters()
       categories = Object.keys(available.category ?? {}).sort()

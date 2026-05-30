@@ -4,5 +4,12 @@
     "types": ["vitest/globals", "node"]
   },
   "exclude": [],
-  "include": ["src/**/*.test.ts", "src/test/**/*.ts"]
+  "include": [
+    ".svelte-kit/ambient.d.ts",
+    ".svelte-kit/non-ambient.d.ts",
+    ".svelte-kit/types/**/*.d.ts",
+    "src/**/*.svelte",
+    "src/**/*.test.ts",
+    "src/test/**/*.ts"
+  ]
 }

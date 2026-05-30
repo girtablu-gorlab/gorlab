@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../app.css';
-  import { base } from '$app/paths';
+  import { asset, resolve } from '$app/paths';
   import { config } from '$lib/catalog.js';
   import AppShell from '$lib/AppShell.svelte';
 
@@ -8,9 +8,9 @@
 </script>
 
 <svelte:head>
-  <link rel="alternate" type="application/rss+xml" title={config.title} href="{base}/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title={config.title} href={resolve('/feed.xml')} />
   {#if config.customCss}
-    <link rel="stylesheet" href="{base}{config.customCss}" />
+    <link rel="stylesheet" href={asset(config.customCss)} />
   {/if}
 </svelte:head>
 

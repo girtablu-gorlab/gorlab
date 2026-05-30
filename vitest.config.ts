@@ -36,9 +36,8 @@ export default defineConfig({
         configDir: path.join(dirname, '.storybook')
       })],
       optimizeDeps: {
-        // The dep-scan of story files fails on `import type` TS syntax, so Vite falls back to
-        // lazy discovery. Pre-including these prevents the mid-collection optimizer restarts
-        // that break the storybook browser tests on CI cold starts.
+        // Pre-including Storybook/theme packages keeps browser-test startup
+        // stable and avoids mid-collection optimizer restarts on cold caches.
         include: [
           '@storybook/addon-themes',
           '@skeletonlabs/skeleton-svelte',
@@ -50,6 +49,9 @@ export default defineConfig({
         browser: {
           enabled: true,
           headless: true,
+          api: {
+            host: '127.0.0.1',
+          },
           provider: playwright({}),
           instances: [{
             browser: 'chromium'

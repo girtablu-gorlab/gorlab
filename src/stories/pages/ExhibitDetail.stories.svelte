@@ -1,6 +1,5 @@
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import type { ImageOrientation } from '$lib/config.js';
 
   const { Story } = defineMeta({
     title: 'Pages/ExhibitDetail',
@@ -8,12 +7,12 @@
     argTypes: {
       imageOrientation: {
         control: 'radio',
-        options: ['landscape', 'portrait', 'none'] satisfies ImageOrientation[],
+        options: ['landscape', 'portrait', 'none'],
         description: 'Image layout. Mirrors the per-exhibit frontmatter field.',
       },
     },
     args: {
-      imageOrientation: 'landscape' satisfies ImageOrientation,
+      imageOrientation: 'landscape',
     },
   });
 </script>

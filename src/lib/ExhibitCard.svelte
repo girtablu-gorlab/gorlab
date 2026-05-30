@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Exhibit } from "./oddments.js";
-    import { base } from "$app/paths";
+    import { asset, resolve } from "$app/paths";
     import { config } from "./catalog.js";
 
     let { exhibit }: { exhibit: Exhibit } = $props();
@@ -16,9 +16,10 @@
     const hasCover = $derived(Boolean(exhibit["cover-image"]));
     const coverSrc = $derived(
         exhibit["cover-image"]?.startsWith("/")
-            ? `${base}${exhibit["cover-image"]}`
+            ? asset(exhibit["cover-image"])
             : (exhibit["cover-image"] ?? ""),
     );
+    const exhibitHref = $derived(resolve(`/exhibit/${exhibit.slug}/`))
 </script>
 
 <article
@@ -28,7 +29,7 @@
 >
     {#if hasCover && orientation !== 'none'}
         <a
-            href={`${base}/exhibit/${exhibit.slug}/`}
+            href={exhibitHref}
             class="block overflow-hidden shrink-0"
             aria-label={exhibit.name ?? exhibit.slug}
         >
@@ -44,7 +45,7 @@
     <!-- Card body -->
     <div class="flex flex-col flex-1 p-4 gap-2">
         <h2 class="font-bold text-base leading-snug">
-            <a href={`${base}/exhibit/${exhibit.slug}/`} class="hover:underline"
+            <a href={exhibitHref} class="hover:underline"
                 >{exhibit.name}</a
             >
         </h2>

@@ -34,6 +34,15 @@ test.describe('exhibit detail page', () => {
     await expect(page.locator('article.card').first()).toBeVisible()
   })
 
+  test('category chip links to the catalog category filter', async ({ page }) => {
+    await page.goto('/exhibit/black-hack/')
+    const categoryChip = page.getByRole('link', { name: 'RPG' })
+    await expect(categoryChip).toBeVisible()
+    await categoryChip.click()
+    await expect(page).toHaveURL(/\?category=RPG/)
+    await expect(page.locator('article.card').first()).toBeVisible()
+  })
+
   test('renders cover image when cover-image is set', async ({ page }) => {
     await page.goto(firstExhibitUrl)
     const img = page.getByRole('img').first()

@@ -7,7 +7,7 @@ The codebase has two distinct layers that should never blur:
 | Layer       | Location                                          | Who owns it |
 | ----------- | ------------------------------------------------- | ----------- |
 | **App**     | `src/` — routes, components, data loading, styles | Developer   |
-| **Content** | `oddments/`, `oddments.config.js`                      | Site owner  |
+| **Content** | `oddments/`, `oddments.config.js`                 | Site owner  |
 
 SvelteKit prebuilds every route at build time (fully static output to `build/`). There is no server at runtime.
 
@@ -61,14 +61,14 @@ The `/submit/` route is a generic form UI. It POSTs to `config.submitUrl` — an
 
 - **Svelte 5 runes** everywhere: `$state`, `$derived`, `$effect`, `$props`, `$bindable`. No legacy Options API.
 - Filter state lives in `+page.svelte`. Components receive values and emit changes via `bind:` props; they own no global state.
-- All internal links must include the `base` import from `$app/paths` and prefix hrefs: `` href=`${base}/exhibit/${slug}/` ``.
-- Local cover image paths need the same `base` prefix since `paths.base` is set in `svelte.config.js`.
+- All internal links must use `resolve` from `$app/paths`, for example `href={resolve('/exhibit/my-slug/')}`.
+- Local static asset paths must use `asset` from `$app/paths`, since `paths.base` is set in `svelte.config.js`.
 - `FilterBar` and `TagCloud` accept a `show` prop; `+page.svelte` passes `data.config.showFilterBar` / `data.config.showTagCloud` directly — no `{#if}` wrappers at the call site.
 - `FilterBar` owns the sort select. Pass `bind:sort` from `+page.svelte`.
 
 ### Adding a component test
 
-Tests live next to the component file (`src/lib/Foo.test.ts`). The vitest config aliases `$lib` and mocks `$app/paths` (`base = ''`) so components can be imported in jsdom without the SvelteKit runtime.
+Tests live next to the component file (`src/lib/Foo.test.ts`). The vitest config aliases `$lib` and mocks `$app/paths` so components can be imported in jsdom without the SvelteKit runtime.
 
 ```ts
 import { render, screen } from '@testing-library/svelte'
