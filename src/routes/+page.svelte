@@ -55,6 +55,17 @@
     options: (o: object) => Promise<void>
   } | null = null
 
+  async function importPagefind() {
+    const primary = asset('/pagefind/pagefind.js')
+    try {
+      return await import(/* @vite-ignore */ primary)
+    } catch (error) {
+      const assetBase = asset('/').replace(/\/$/, '')
+      if (!assetBase || !primary.startsWith(`${assetBase}/`)) throw error
+      return await import(/* @vite-ignore */ primary.slice(assetBase.length))
+    }
+  }
+
   function resultToExhibit(r: PagefindResultData): Exhibit {
     const slug = r.url.replace(/^.*\/exhibit\//, '').replace(/\/$/, '')
     return {
@@ -110,7 +121,7 @@
       return
     }
     try {
-      pagefind = await import(/* @vite-ignore */ asset('/pagefind/pagefind.js'))
+      pagefind = await importPagefind()
       const baseUrl = resolve('/').replace(/\/$/, '')
       if (baseUrl) await pagefind!.options({ baseUrl })
       await pagefind!.init()
