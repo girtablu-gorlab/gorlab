@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "build": "oddments build",
+    "clean": "oddments clean",
     "dev": "oddments dev",
     "preview": "oddments preview"
   },
   "dependencies": {
-    "@gulluth/oddments": "^0.98.0"
+    "@gulluth/oddments": "^0.98.1"
   }
 }
