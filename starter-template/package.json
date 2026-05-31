@@ -10,6 +10,6 @@
     "preview": "oddments preview"
   },
   "dependencies": {
-    "@gulluth/oddments": "^0.98.1"
+    "@gulluth/oddments": "^0.98.2"
   }
 }

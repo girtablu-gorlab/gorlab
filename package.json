@@ -1,6 +1,6 @@
 {
   "name": "@gulluth/oddments",
-  "version": "0.98.1",
+  "version": "0.98.2",
   "private": false,
   "type": "module",
   "bin": {
